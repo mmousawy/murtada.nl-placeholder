@@ -1,5 +1,8 @@
 :root {
   --foreground: #222527;
+  --link: #3835B9;
+  --primary: #6866f2;
+  --green: #00d26a;
 }
 
 * {
@@ -17,19 +20,9 @@ body {
 
 body {
   color: var(--foreground);
-  animation: fadeIn 500ms;
 }
 
 a {
   color: inherit;
   text-decoration: none;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
 }

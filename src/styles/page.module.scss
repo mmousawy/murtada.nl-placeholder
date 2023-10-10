@@ -1,7 +1,7 @@
 @import 'mixins';
 
 .bullet {
-  background-color: #00d26a;
+  background-color: var(--green);
   height: 16px;
   position: relative;
   margin-right: .4em;
@@ -35,7 +35,6 @@
 }
 
 .photo {
-  border-radius: 0;
   box-shadow: 0 0 0 4px var(--foreground);
   border: 2px solid #fff;
   border-radius: 1px;
@@ -49,7 +48,7 @@
 }
 
 .name {
-  color:  #00d26a;
+  color:  var(--primary);
 }
 
 .title {
@@ -104,8 +103,8 @@
   transition: box-shadow .2s ease-in-out, color .2s ease-in-out;
 
   &:hover {
-    box-shadow: 0 0 0 2px #3835B9;
-    color: #3835B9;
+    box-shadow: 0 0 0 2px var(--link);
+    color: var(--link);
   }
 
   @include max(lg) {
