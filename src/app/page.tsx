@@ -1,94 +1,52 @@
 import Image from 'next/image'
-import styles from './page.module.css'
+import styles from '@/styles/page.module.scss'
 
 export default function Home() {
   return (
     <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
+      <div className={styles.heading}>
+
       </div>
 
       <div className={styles.center}>
         <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
+          className={styles.photo}
+          src="/murtada-al-mousawy-photo-removebg-preview (1).png"
+          alt="Portrait of Murtada al Mousawy"
+          width={192}
+          height={192}
           priority
         />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+        <div className={styles.aside}>
+          <h1 className={styles.title}><span className={styles.name}>Murtada al Mousawy</span><br/>Senior Web Developer</h1>
+          <div className={styles.asideDetails}>
+            <span className={ styles.availabilityStatus }><span className={styles.bullet}></span> Available for work</span>
+            <svg width="32" height="32" className={styles.dots}>
+            <linearGradient id="gradient1">
+            <stop id="stop1" offset="0%" stopColor="#dddddd"/>
+            <stop id="stop2" offset="100%" stopColor="#222527"/>
+            </linearGradient>
+            <rect x="0" y="15" width="32" height="2" fill="url(#gradient1)"/>
+              <path
+                d="M 0 16 L 32 16"
+                strokeMiterlimit="10"
+                fill="none"
+                stroke="#fff"
+                strokeWidth="2"
+                strokeDasharray="2"
+                strokeDashoffset="1">
+                <animate
+                  attributeName="stroke-dashoffset"
+                  values="20;0"
+                  dur="3s"
+                  calcMode="linear"
+                  repeatCount="indefinite"
+                />
+              </path>
+            </svg>
+            <a href="mailto:info@murtada.nl" className={styles.contactButton}>Contact me</a>
+          </div>
+        </div>
       </div>
     </main>
   )
