@@ -11,7 +11,7 @@ export default function Home() {
       <div className={styles.center}>
         <Image
           className={styles.photo}
-          src="/murtada-al-mousawy-photo-removebg-preview (1).png"
+          src="/murtada-al-mousawy-photo.png"
           alt="Portrait of Murtada al Mousawy"
           width={192}
           height={192}
