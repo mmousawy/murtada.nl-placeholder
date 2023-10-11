@@ -5,13 +5,19 @@ import { useEffect } from 'react';
 import styles from '@/styles/page.module.scss'
 
 const NoiseFilter = ({ /* Destructure your props here */ }) => {
-  // Add your component logic here
-  useEffect(() => {
-    const noiseFilter = document.querySelector('#noiseFilter');
+  const svgRef = React.useRef<SVGSVGElement>(null);
 
+  useEffect(() => {
     const seedRandomizer = setInterval(() => {
-      noiseFilter?.children[0].setAttribute('seed', `${Math.round(Math.random() * 1000)}`);
+      svgRef.current!.querySelector('#noiseFilter')!.children[0].setAttribute('seed', `${Math.round(Math.random() * 1000)}`);
     }, 40);
+
+    window.addEventListener('resize', () => {
+        svgRef.current!.setAttribute('viewBox', `0 0 ${window.innerWidth} ${window.innerHeight}`);
+        console.dir(svgRef.current);
+    });
+
+    svgRef.current!.setAttribute('viewBox', `0 0 ${window.innerWidth} ${window.innerHeight}`);
 
     return () => {
       clearInterval(seedRandomizer);
@@ -19,11 +25,11 @@ const NoiseFilter = ({ /* Destructure your props here */ }) => {
   }, []);
 
   return (
-    <svg viewBox="0 0 192 192" preserveAspectRatio="xMinYMin slice" className={styles.noise}>
+    <svg viewBox="0 0 1920 1920" preserveAspectRatio="xMinYMin slice" className={styles.noise} ref={svgRef}>
       <filter id='noiseFilter'>
         <feTurbulence
           type='fractalNoise'
-          baseFrequency='10'
+          baseFrequency='.7'
           numOctaves='1'
         />
       </filter>
