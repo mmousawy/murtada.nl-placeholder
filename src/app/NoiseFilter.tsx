@@ -13,8 +13,7 @@ const NoiseFilter = ({ /* Destructure your props here */ }) => {
     }, 40);
 
     window.addEventListener('resize', () => {
-        svgRef.current!.setAttribute('viewBox', `0 0 ${window.innerWidth} ${window.innerHeight}`);
-        console.dir(svgRef.current);
+      svgRef.current!.setAttribute('viewBox', `0 0 ${window.innerWidth} ${window.innerHeight}`);
     });
 
     svgRef.current!.setAttribute('viewBox', `0 0 ${window.innerWidth} ${window.innerHeight}`);
