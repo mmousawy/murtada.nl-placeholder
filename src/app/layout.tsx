@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import Image from 'next/image';
 import { Inter } from 'next/font/google'
 import styles from '@/styles/page.module.scss'
+import NoiseFilter from './NoiseFilter';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,6 +17,8 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+
+
   return (
     <html lang="en">
       <body className={inter.className}>
@@ -27,16 +30,7 @@ export default function RootLayout({
           width={1920}
           height={1080}
         />
-        <svg viewBox="0 0 24 24" preserveAspectRatio="none" width="1920" height="1080" className={styles.noise}>
-        <filter id='noiseFilter'>
-          <feTurbulence
-            type='fractalNoise'
-            baseFrequency='80'
-            numOctaves='100'
-            stitchTiles='stitch' />
-        </filter>
-        <rect width='100%' height='100%' filter='url(#noiseFilter)' />
-      </svg>
+        <NoiseFilter />
       </body>
     </html>
   )
