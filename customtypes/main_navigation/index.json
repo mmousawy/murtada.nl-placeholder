@@ -1,0 +1,18 @@
+{
+  "id": "main_navigation",
+  "label": "Main navigation",
+  "format": "custom",
+  "repeatable": false,
+  "status": true,
+  "json": {
+    "Main": {
+      "page": {
+        "type": "Link",
+        "config": {
+          "label": "page",
+          "select": "document"
+        }
+      }
+    }
+  }
+}
