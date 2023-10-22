@@ -6,14 +6,6 @@ import st from '@/styles/page.module.scss';
 export default function Home() {
   return (
     <>
-      <Image
-        className={st.bg}
-        src="/bg3.webp"
-        alt="Background image"
-        width={1920}
-        height={1080}
-      />
-      <NoiseFilter />
       <main className={st.main}>
         <div className={st.center}>
           <Image
@@ -56,6 +48,14 @@ export default function Home() {
           </div>
         </div>
       </main>
+      <Image
+        className={st.bg}
+        src="/bg3.webp"
+        alt="Background image"
+        width={1920}
+        height={1080}
+      />
+      <NoiseFilter />
     </>
   )
 }
