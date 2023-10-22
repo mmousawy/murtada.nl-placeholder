@@ -9,8 +9,9 @@
   height: 100svh;
   object-fit: cover;
   object-position: 50%;
-  animation: fadeIn 1s ease-out both;
-  animation-delay: .5s;
+  opacity: .3;
+  // animation: fadeIn 1s ease-out both;
+  // animation-delay: .5s;
   pointer-events: none;
 }
 
@@ -23,9 +24,9 @@
   width: 100vw;
   height: 100svh;
   filter: grayscale(.5) contrast(1.5);
-  opacity: .7;
+  opacity: .5;
   pointer-events: none;
-  animation: fadeIn2 1s ease-out both;
+  // animation: fadeIn2 1s ease-out both;
 }
 
 .bullet {
@@ -156,6 +157,16 @@
     transform: rotate(90deg);
     height: 2rem;
   }
+}
+
+.pageContainer {
+  position: relative;
+  z-index: 2;
+  padding-top: 5.25rem + 3rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  max-width: var(--max-width);
+  margin: 0 auto;
 }
 
 @keyframes bulletPulse {

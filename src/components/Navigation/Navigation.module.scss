@@ -1,0 +1,18 @@
+.navList {
+  align-items: center;
+  display: flex;
+  list-style: none;
+  gap: .75rem;
+
+  a {
+    font-weight: 700;
+    padding: .5em;
+  }
+}
+
+.activeLink {
+  color: var(--link);
+  text-decoration: underline;
+  text-underline-offset: .5em;
+  text-decoration-thickness: 2px;
+}

@@ -1,0 +1,40 @@
+@import '@/styles/mixins';
+
+.header {
+  position: fixed;
+  z-index: 2020;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 1rem 1rem;
+}
+
+.contactButton {
+  background-color: #fff;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 0 0 2px var(--foreground);
+  padding: .3em .6em .4em;
+  font-weight: 700;
+  border-radius: 1px;
+  transition: box-shadow .2s, color .2s;
+
+  &:hover {
+    box-shadow: 0 0 0 2px var(--link);
+    color: var(--link);
+  }
+
+  @include max(lg) {
+    flex-grow: 1;
+  }
+}

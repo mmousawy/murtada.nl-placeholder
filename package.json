@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "concurrently \"npm:next:dev\" \"npm:slicemachine\" --names \"next,slicemachine\" --prefix-colors blue,magenta",
+    "next:dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -19,14 +20,14 @@
     "react-dom": "^18"
   },
   "devDependencies": {
-    "@slicemachine/adapter-next": "^0.3.20",
+    "@slicemachine/adapter-next": "^0.3.21",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",
     "eslint-config-next": "13.5.4",
     "sass": "^1.69.1",
-    "slice-machine-ui": "^1.17.0",
+    "slice-machine-ui": "^1.18.0",
     "typescript": "^5"
   }
 }

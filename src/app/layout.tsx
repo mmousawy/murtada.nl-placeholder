@@ -1,39 +1,35 @@
-import '@/styles/globals.scss'
-import type { Metadata } from 'next'
+import '@/styles/globals.scss';
+import type { Metadata } from 'next';
 import Image from 'next/image';
-import Script from 'next/script';
-import { Inter } from 'next/font/google'
-import styles from '@/styles/page.module.scss'
-import NoiseFilter from './NoiseFilter';
+import { Inter } from 'next/font/google';
+const inter = Inter({ subsets: ['latin'] });
+import { PrismicPreview } from '@prismicio/next';
+import { repositoryName } from '@/prismicio';
+import { createClient } from "@/prismicio";
 
-const inter = Inter({ subsets: ['latin'] })
+import Header from '@/components/Header/Header';
 
 export const metadata: Metadata = {
   title: 'Murtada al Mousawy - Senior Web Developer',
   description: 'Portfolio of Murtada al Mousawy, Senior Web Developer in Rotterdam & The Hague',
   metadataBase: new URL('https://murtada.nl'),
-}
+};
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const client = createClient();
 
+  const menuData = await client.getSingle("main_navigation");
 
   return (
     <html lang="en">
-      <Script async defer src="https://static.cdn.prismic.io/prismic.js?new=true&repo=murtada" />
       <body className={inter.className}>
+        <Header menuData={ menuData.data } />
         {children}
-        <Image
-          className={styles.bg}
-          src="/bg3.webp"
-          alt="Background image"
-          width={1920}
-          height={1080}
-        />
-        <NoiseFilter />
+        <PrismicPreview repositoryName={repositoryName} />
       </body>
     </html>
   )

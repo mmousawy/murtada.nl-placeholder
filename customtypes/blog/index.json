@@ -1,6 +1,6 @@
 {
-  "id": "home",
-  "label": "Home",
+  "id": "blog",
+  "label": "Blog",
   "format": "page",
   "repeatable": false,
   "status": true,

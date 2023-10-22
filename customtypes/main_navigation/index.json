@@ -6,11 +6,28 @@
   "status": true,
   "json": {
     "Main": {
-      "page": {
-        "type": "Link",
+      "items": {
+        "type": "Group",
         "config": {
-          "label": "page",
-          "select": "document"
+          "label": "Items",
+          "fields": {
+            "label": {
+              "type": "Text",
+              "config": {
+                "label": "label",
+                "placeholder": ""
+              }
+            },
+            "link": {
+              "type": "Link",
+              "config": {
+                "label": "link",
+                "placeholder": "",
+                "allowTargetBlank": false,
+                "select": null
+              }
+            }
+          }
         }
       }
     }

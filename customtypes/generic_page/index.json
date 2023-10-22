@@ -1,11 +1,17 @@
 {
-  "id": "home",
-  "label": "Home",
+  "id": "generic_page",
+  "label": "Generic page",
   "format": "page",
-  "repeatable": false,
+  "repeatable": true,
   "status": true,
   "json": {
     "Main": {
+      "uid": {
+        "config": {
+          "label": "UID"
+        },
+        "type": "UID"
+      },
       "slices": {
         "type": "Slices",
         "fieldset": "Slice Zone",
