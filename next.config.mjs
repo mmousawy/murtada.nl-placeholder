@@ -1,5 +1,3 @@
-import withPlaiceholder from "@plaiceholder/next";
-
 /** @type {import('next').NextConfig} */
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -12,4 +10,4 @@ const nextConfig = {
   },
 };
 
-export default withPlaiceholder(nextConfig);
+export default nextConfig;
