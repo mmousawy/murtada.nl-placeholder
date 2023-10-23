@@ -7,8 +7,27 @@ $breakpoints: (
   xxl: 1400px
 );
 
-@mixin max($width) {
-  @media screen and (max-width: map-get($breakpoints, $width)) {
+@mixin min($size) {
+  $breakpoint: map-get($breakpoints, $size);
+
+  @media screen and (min-width: #{$breakpoint + 1}) {
+    @content;
+  }
+}
+
+@mixin max($size) {
+  $breakpoint: map-get($breakpoints, $size);
+
+  @media screen and (max-width: $breakpoint) {
+    @content;
+  }
+}
+
+@mixin range($sizeMin, $sizeMax) {
+  $breakpointMin: map-get($breakpoints, $sizeMin);
+  $breakpointMax: map-get($breakpoints, $sizeMax);
+
+  @media screen and (min-width: #{$breakpointMin + 1}) and (max-width: $breakpointMax) {
     @content;
   }
 }

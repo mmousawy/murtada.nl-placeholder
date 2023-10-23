@@ -11,6 +11,50 @@ type AboutDocumentDataSlicesSlice = HeroSlice;
  */
 interface AboutDocumentData {
   /**
+   * Title field in *About*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: about.title
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  title: prismic.KeyTextField;
+
+  /**
+   * Left intro field in *About*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: about.left_intro
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  left_intro: prismic.RichTextField;
+
+  /**
+   * Left image field in *About*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: about.left_image
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  left_image: prismic.ImageField<never>;
+
+  /**
+   * Right intro field in *About*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: about.right_intro
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  right_intro: prismic.RichTextField;
+
+  /**
    * Slice Zone field in *About*
    *
    * - **Field Type**: Slice Zone

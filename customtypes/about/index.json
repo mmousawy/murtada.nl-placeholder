@@ -6,6 +6,42 @@
   "status": true,
   "json": {
     "Main": {
+      "title": {
+        "type": "Text",
+        "config": {
+          "label": "Title",
+          "placeholder": ""
+        }
+      },
+      "left_intro": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Left intro",
+          "placeholder": "",
+          "allowTargetBlank": true,
+          "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+        }
+      },
+      "left_image": {
+        "type": "Image",
+        "config": {
+          "label": "Left image",
+          "constraint": {
+            "width": 1024,
+            "height": null
+          },
+          "thumbnails": []
+        }
+      },
+      "right_intro": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Right intro",
+          "placeholder": "",
+          "allowTargetBlank": true,
+          "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+        }
+      },
       "slices": {
         "type": "Slices",
         "fieldset": "Slice Zone",

@@ -7,7 +7,8 @@ import { PrismicPreview } from '@prismicio/next';
 import { repositoryName } from '@/prismicio';
 import { createClient } from "@/prismicio";
 
-import Header from '@/components/Header/Header';
+import Header from '@/components/Global/Header/Header';
+import Footer from '@/components/Global/Footer/Footer';
 
 export const metadata: Metadata = {
   title: 'Murtada al Mousawy - Senior Web Developer',
@@ -29,6 +30,7 @@ export default async function RootLayout({
       <body className={inter.className}>
         <Header menuData={ menuData.data } />
         {children}
+        <Footer />
         <PrismicPreview repositoryName={repositoryName} />
       </body>
     </html>

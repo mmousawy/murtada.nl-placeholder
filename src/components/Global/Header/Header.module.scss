@@ -14,9 +14,8 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 1rem 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 .contactButton {
@@ -32,9 +31,5 @@
   &:hover {
     box-shadow: 0 0 0 2px var(--link);
     color: var(--link);
-  }
-
-  @include max(lg) {
-    flex-grow: 1;
   }
 }
