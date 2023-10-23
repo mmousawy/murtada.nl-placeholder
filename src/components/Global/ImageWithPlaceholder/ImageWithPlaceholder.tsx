@@ -6,7 +6,7 @@ interface ImageWithPlaceholderProps {
 
 const ImageWithPlaceholder: React.FC<ImageWithPlaceholderProps> = async ({ imgData }) => {
   const imgUrl = `${imgData.url}&blur=200`;
-
+  const base64 = '';
 
   return (
     <div className="image-with-placeholder">
