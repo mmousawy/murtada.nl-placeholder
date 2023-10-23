@@ -14,7 +14,7 @@ const AboutPage = async () => {
 
   const page: any = await client.getSingle('about');
 
-  const smallImgUrl = page.data.left_image.url.replace(/&w=(\d+)/gm, '&w=20');
+  const smallImgUrl = page.data.left_image?.url?.replace(/&w=(\d+)/gm, '&w=20');
 
   const base64str = await fetch(smallImgUrl).then(async (res) =>
     Buffer.from(await res.arrayBuffer()).toString('base64')
