@@ -7,7 +7,6 @@ import { PrismicRichText, PrismicText, SliceZone } from "@prismicio/react";
 import { components } from "@/slices";
 import Container from '@/components/Global/Container/Container';
 import { PrismicNextImage } from '@prismicio/next';
-import { getPlaiceholder } from 'plaiceholder';
 
 const AboutPage = async () => {
   const client = createClient();
