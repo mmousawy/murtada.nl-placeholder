@@ -15,8 +15,10 @@ const AboutPage = async () => {
 
   const smallImgUrl = page.data.left_image?.url?.replace(/&w=(\d+)/gm, '&w=20');
 
+  let base64str = '';
+
   if (smallImgUrl) {
-    const base64str = await fetch(smallImgUrl).then(async (res) =>
+    base64str = await fetch(smallImgUrl).then(async (res) =>
       Buffer.from(await res.arrayBuffer()).toString('base64')
     );
   }
