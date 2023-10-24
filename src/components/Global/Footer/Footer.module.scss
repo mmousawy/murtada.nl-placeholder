@@ -4,3 +4,13 @@
   width: 100%;
   background-color: #fff;
 }
+
+.container {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+
+  @include max(sm) {
+    padding-top: 2rem;
+    padding-bottom: 3rem;
+  }
+}

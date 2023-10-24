@@ -6,7 +6,7 @@ import Container from '@/components/Global/Container/Container';
 const Footer: FC = () => {
   return (
     <footer className={st.footer}>
-      <Container>
+      <Container classNames={st.container}>
         &copy; {new Date().getFullYear()} Murtada al Mousawy
       </Container>
     </footer>

@@ -14,7 +14,7 @@ type HeaderProps = {
 const Header: React.FC<HeaderProps> = ({ menuData }: HeaderProps) => {
   return (
     <header className={st.header}>
-      <Container classNames={st.container}>
+      <Container classNames={st.container} variant={'less-padding'}>
         <div className={st.logo}>
           <Link href="/" aria-label="Home">
             <Image src="/logo.svg" alt="Murtada.nl logo" width={48} height={48} />

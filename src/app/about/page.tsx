@@ -6,22 +6,14 @@ import { createClient } from '@/prismicio';
 import { PrismicRichText, PrismicText, SliceZone } from "@prismicio/react";
 import { components } from "@/slices";
 import Container from '@/components/Global/Container/Container';
-import { PrismicNextImage } from '@prismicio/next';
+import PrismicImageWithBlur from '@/components/Global/PrismicImageWithBlur/PrismicImageWithBlur';
 
 const AboutPage = async () => {
   const client = createClient();
 
   const page: any = await client.getSingle('about');
 
-  const smallImgUrl = page.data.left_image?.url?.replace(/&w=(\d+)/gm, '&w=20');
 
-  let base64str = '';
-
-  if (smallImgUrl) {
-    base64str = await fetch(smallImgUrl).then(async (res) =>
-      Buffer.from(await res.arrayBuffer()).toString('base64')
-    );
-  }
 
   return (
     <div className={st.pageContainer}>
@@ -29,7 +21,7 @@ const AboutPage = async () => {
         <h1 className={st2.title}>{page.data.title}</h1>
         <div className={st2.leftIntro}>
           <PrismicRichText field={page.data.left_intro} />
-          <PrismicNextImage field={page.data.left_image} placeholder='blur' blurDataURL={`data:image/png;base64,${base64str}`} />
+          <PrismicImageWithBlur field={page.data.left_image} />
         </div>
         <div className={st2.rightIntro}>
           <PrismicRichText field={page.data.right_intro} />
