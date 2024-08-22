@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import Image from 'next/image';
 
@@ -12,8 +14,28 @@ type HeaderProps = {
 };
 
 const Header: React.FC<HeaderProps> = ({ menuData }: HeaderProps) => {
+  // Add style to header element when scrolled
+  const [scrolled, setScrolled] = React.useState(false);
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 0;
+      setScrolled(isScrolled);
+    };
+
+    handleScroll();
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  const headerClassName = `${st.header} ${scrolled ? st['header--scrolled'] : ''}`;
+
   return (
-    <header className={st.header}>
+    <header className={headerClassName}>
       <Container classNames={st.container} variant={'less-padding'}>
         <div className={st.logo}>
           <Link href="/" aria-label="Home">
