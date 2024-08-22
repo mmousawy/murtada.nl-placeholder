@@ -29,7 +29,7 @@ const PhotographyPage = async ({ params }: { params: { uid: string } }) => {
   const page: any = await client.getByUID('photo_album', params.uid);
 
   page.data.photos = page.data.photos.map((photo: any) => {
-    photo.maxWidth = 1920;
+    photo.maxWidth = 1344;
     photo.orientation = 'landscape';
 
     // If image height is greater than width, set max width to 600
