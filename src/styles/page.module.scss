@@ -165,6 +165,10 @@
   padding-top: 5.25rem + 3rem;
   max-width: var(--max-width);
   margin: 0 auto;
+
+  @include max(lg) {
+    padding-top: 4.5rem + 2rem;
+  }
 }
 
 @keyframes bulletPulse {

@@ -18,6 +18,10 @@ const NoiseFilter = ({ /* Destructure your props here */ }) => {
       const elapsed = now - then;
 
       if (elapsed > fpsInterval) {
+        if (!svgRef.current) {
+          return;
+        }
+
         svgRef.current!.querySelector('#noiseFilter')!.children[0].setAttribute('seed', `${Math.round(Math.random() * 1000)}`);
         then = now - (elapsed % fpsInterval);
       }

@@ -1,13 +1,21 @@
 import { PrismicNextImage } from '@prismicio/next';
+import Image from 'next/image'
 
 import st from './PrismicImageWithBlur.module.scss';
 
 interface PrismicImageWithBlurProps {
   field: any;
+  className?: string;
+  width?: number;
+  imgixParams?: Record<string, string>;
 }
 
 const PrismicImageWithBlur: React.FC<PrismicImageWithBlurProps> = async ({ field, ...props }) => {
   const smallImgUrl = field.url?.replace(/&w=(\d+)/gm, '&w=20');
+
+  const searchParams = new URLSearchParams(props.imgixParams);
+
+  field.url = field.url?.replace(/\?.+/gm, '?' + searchParams.toString());
 
   let base64str = '';
 

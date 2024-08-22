@@ -22,6 +22,12 @@ body {
 
 body {
   color: var(--foreground);
+  display: flex;
+  flex-direction: column;
+
+  > * {
+    width: 100%;
+  }
 }
 
 a {

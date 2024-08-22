@@ -1,0 +1,21 @@
+.album {
+  transition: opacity .3s ease-in-out;
+
+  &:hover {
+    opacity: .8;
+  }
+}
+
+.album__cover{
+  aspect-ratio: 1/1;
+  display: block;
+  object-fit: cover;
+  width: 100%;
+  height: auto;
+}
+
+.title {
+  display: block;
+  margin-top: 1rem;
+  font-size: 1.5rem;
+}

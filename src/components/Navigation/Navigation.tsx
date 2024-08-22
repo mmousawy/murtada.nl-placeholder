@@ -13,7 +13,7 @@ const Navigation: React.FC<NavigationProps> = ({ menuData }) => {
         { menuData.items.map((menuItem: any) => (
           <li key={menuItem.label}>
             <ActiveLink
-              href={menuItem.link.slug}
+              href={`/${menuItem.link.slug}`}
               activeClassName={st.activeLink}
             >
               {menuItem.label}

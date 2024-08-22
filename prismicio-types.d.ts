@@ -63,8 +63,7 @@ interface AboutDocumentData {
    * - **Tab**: Main
    * - **Documentation**: https://prismic.io/docs/field#slices
    */
-  slices: prismic.SliceZone<AboutDocumentDataSlicesSlice>
-  /**
+  slices: prismic.SliceZone<AboutDocumentDataSlicesSlice> /**
    * Meta Description field in *About*
    *
    * - **Field Type**: Text
@@ -125,8 +124,7 @@ interface BlogDocumentData {
    * - **Tab**: Main
    * - **Documentation**: https://prismic.io/docs/field#slices
    */
-  slices: prismic.SliceZone<BlogDocumentDataSlicesSlice>
-  /**
+  slices: prismic.SliceZone<BlogDocumentDataSlicesSlice> /**
    * Meta Description field in *Blog*
    *
    * - **Field Type**: Text
@@ -187,8 +185,7 @@ interface BlogPostDocumentData {
    * - **Tab**: Main
    * - **Documentation**: https://prismic.io/docs/field#slices
    */
-  slices: prismic.SliceZone<BlogPostDocumentDataSlicesSlice>
-  /**
+  slices: prismic.SliceZone<BlogPostDocumentDataSlicesSlice> /**
    * Meta Description field in *Blog post*
    *
    * - **Field Type**: Text
@@ -253,8 +250,7 @@ interface ContactDocumentData {
    * - **Tab**: Main
    * - **Documentation**: https://prismic.io/docs/field#slices
    */
-  slices: prismic.SliceZone<ContactDocumentDataSlicesSlice>
-  /**
+  slices: prismic.SliceZone<ContactDocumentDataSlicesSlice> /**
    * Meta Description field in *Contact*
    *
    * - **Field Type**: Text
@@ -319,8 +315,7 @@ interface GenericPageDocumentData {
    * - **Tab**: Main
    * - **Documentation**: https://prismic.io/docs/field#slices
    */
-  slices: prismic.SliceZone<GenericPageDocumentDataSlicesSlice>
-  /**
+  slices: prismic.SliceZone<GenericPageDocumentDataSlicesSlice> /**
    * Meta Description field in *Generic page*
    *
    * - **Field Type**: Text
@@ -385,8 +380,7 @@ interface HomeDocumentData {
    * - **Tab**: Main
    * - **Documentation**: https://prismic.io/docs/field#slices
    */
-  slices: prismic.SliceZone<HomeDocumentDataSlicesSlice>
-  /**
+  slices: prismic.SliceZone<HomeDocumentDataSlicesSlice> /**
    * Meta Description field in *Home*
    *
    * - **Field Type**: Text
@@ -489,6 +483,256 @@ export type MainNavigationDocument<Lang extends string = string> =
     Lang
   >;
 
+/**
+ * Item in *Photo album → Photos*
+ */
+export interface PhotoAlbumDocumentDataPhotosItem {
+  /**
+   * image field in *Photo album → Photos*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: photo_album.photos[].image
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
+   * style field in *Photo album → Photos*
+   *
+   * - **Field Type**: Select
+   * - **Placeholder**: *None*
+   * - **Default Value**: Normal
+   * - **API ID Path**: photo_album.photos[].style
+   * - **Documentation**: https://prismic.io/docs/field#select
+   */
+  style: prismic.SelectField<"Normal" | "Full width", "filled">;
+}
+
+type PhotoAlbumDocumentDataSlicesSlice = never;
+
+/**
+ * Content for Photo album documents
+ */
+interface PhotoAlbumDocumentData {
+  /**
+   * Title field in *Photo album*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: photo_album.title
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  title: prismic.KeyTextField;
+
+  /**
+   * Year field in *Photo album*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: photo_album.year
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  year: prismic.KeyTextField;
+
+  /**
+   * Description field in *Photo album*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: photo_album.description
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  description: prismic.RichTextField;
+
+  /**
+   * Cover image field in *Photo album*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: photo_album.cover_image
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  cover_image: prismic.ImageField<never>;
+
+  /**
+   * Photos field in *Photo album*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: photo_album.photos[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  photos: prismic.GroupField<Simplify<PhotoAlbumDocumentDataPhotosItem>>;
+
+  /**
+   * Slice Zone field in *Photo album*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: photo_album.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<PhotoAlbumDocumentDataSlicesSlice> /**
+   * Meta Title field in *Photo album*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: photo_album.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */;
+  meta_title: prismic.KeyTextField;
+
+  /**
+   * Meta Description field in *Photo album*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: photo_album.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *Photo album*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: photo_album.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  meta_image: prismic.ImageField<never>;
+}
+
+/**
+ * Photo album document from Prismic
+ *
+ * - **API ID**: `photo_album`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type PhotoAlbumDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<
+    Simplify<PhotoAlbumDocumentData>,
+    "photo_album",
+    Lang
+  >;
+
+/**
+ * Item in *Photography → Selected photo albums*
+ */
+export interface PhotographyDocumentDataSelectedPhotoAlbumsItem {
+  /**
+   * album field in *Photography → Selected photo albums*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: photography.selected_photo_albums[].album
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  album: prismic.ContentRelationshipField<"photo_album">;
+}
+
+type PhotographyDocumentDataSlicesSlice = never;
+
+/**
+ * Content for Photography documents
+ */
+interface PhotographyDocumentData {
+  /**
+   * Title field in *Photography*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: photography.title
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  title: prismic.KeyTextField;
+
+  /**
+   * Selected photo albums field in *Photography*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: photography.selected_photo_albums[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  selected_photo_albums: prismic.GroupField<
+    Simplify<PhotographyDocumentDataSelectedPhotoAlbumsItem>
+  >;
+
+  /**
+   * Slice Zone field in *Photography*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: photography.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<PhotographyDocumentDataSlicesSlice> /**
+   * Meta Title field in *Photography*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: photography.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */;
+  meta_title: prismic.KeyTextField;
+
+  /**
+   * Meta Description field in *Photography*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: photography.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *Photography*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: photography.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  meta_image: prismic.ImageField<never>;
+}
+
+/**
+ * Photography document from Prismic
+ *
+ * - **API ID**: `photography`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type PhotographyDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<
+    Simplify<PhotographyDocumentData>,
+    "photography",
+    Lang
+  >;
+
 type ProjectsDocumentDataSlicesSlice = never;
 
 /**
@@ -504,8 +748,7 @@ interface ProjectsDocumentData {
    * - **Tab**: Main
    * - **Documentation**: https://prismic.io/docs/field#slices
    */
-  slices: prismic.SliceZone<ProjectsDocumentDataSlicesSlice>
-  /**
+  slices: prismic.SliceZone<ProjectsDocumentDataSlicesSlice> /**
    * Meta Description field in *Projects*
    *
    * - **Field Type**: Text
@@ -563,38 +806,40 @@ export type AllDocumentTypes =
   | GenericPageDocument
   | HomeDocument
   | MainNavigationDocument
+  | PhotoAlbumDocument
+  | PhotographyDocument
   | ProjectsDocument;
 
 /**
- * Primary content in *Hero → Primary*
+ * Primary content in *Hero → Default → Primary*
  */
 export interface HeroSliceDefaultPrimary {
   /**
-   * Title field in *Hero → Primary*
+   * Title field in *Hero → Default → Primary*
    *
    * - **Field Type**: Text
    * - **Placeholder**: *None*
-   * - **API ID Path**: hero.primary.title
+   * - **API ID Path**: hero.default.primary.title
    * - **Documentation**: https://prismic.io/docs/field#key-text
    */
   title: prismic.KeyTextField;
 
   /**
-   * Intro field in *Hero → Primary*
+   * Intro field in *Hero → Default → Primary*
    *
    * - **Field Type**: Rich Text
    * - **Placeholder**: *None*
-   * - **API ID Path**: hero.primary.intro
+   * - **API ID Path**: hero.default.primary.intro
    * - **Documentation**: https://prismic.io/docs/field#rich-text-title
    */
   intro: prismic.RichTextField;
 
   /**
-   * Image field in *Hero → Primary*
+   * Image field in *Hero → Default → Primary*
    *
    * - **Field Type**: Image
    * - **Placeholder**: *None*
-   * - **API ID Path**: hero.primary.image
+   * - **API ID Path**: hero.default.primary.image
    * - **Documentation**: https://prismic.io/docs/field#image
    */
   image: prismic.ImageField<never>;
@@ -627,11 +872,86 @@ type HeroSliceVariation = HeroSliceDefault;
  */
 export type HeroSlice = prismic.SharedSlice<"hero", HeroSliceVariation>;
 
+/**
+ * Primary content in *PhotoAlbumPhoto → Default → Primary*
+ */
+export interface PhotoAlbumPhotoSliceDefaultPrimary {
+  /**
+   * Image field in *PhotoAlbumPhoto → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: photo_album_photo.default.primary.image
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image: prismic.ImageField<never>;
+}
+
+/**
+ * Default variation for PhotoAlbumPhoto Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type PhotoAlbumPhotoSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<PhotoAlbumPhotoSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Primary content in *PhotoAlbumPhoto → Full Width → Primary*
+ */
+export interface PhotoAlbumPhotoSliceFullWidthPrimary {
+  /**
+   * Image field in *PhotoAlbumPhoto → Full Width → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: photo_album_photo.fullWidth.primary.image
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image: prismic.ImageField<never>;
+}
+
+/**
+ * Full Width variation for PhotoAlbumPhoto Slice
+ *
+ * - **API ID**: `fullWidth`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type PhotoAlbumPhotoSliceFullWidth = prismic.SharedSliceVariation<
+  "fullWidth",
+  Simplify<PhotoAlbumPhotoSliceFullWidthPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *PhotoAlbumPhoto*
+ */
+type PhotoAlbumPhotoSliceVariation =
+  | PhotoAlbumPhotoSliceDefault
+  | PhotoAlbumPhotoSliceFullWidth;
+
+/**
+ * PhotoAlbumPhoto Shared Slice
+ *
+ * - **API ID**: `photo_album_photo`
+ * - **Description**: PhotoAlbumPhoto
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type PhotoAlbumPhotoSlice = prismic.SharedSlice<
+  "photo_album_photo",
+  PhotoAlbumPhotoSliceVariation
+>;
+
 declare module "@prismicio/client" {
   interface CreateClient {
     (
       repositoryNameOrEndpoint: string,
-      options?: prismic.ClientConfig
+      options?: prismic.ClientConfig,
     ): prismic.Client<AllDocumentTypes>;
   }
 
@@ -658,6 +978,14 @@ declare module "@prismicio/client" {
       MainNavigationDocument,
       MainNavigationDocumentData,
       MainNavigationDocumentDataItemsItem,
+      PhotoAlbumDocument,
+      PhotoAlbumDocumentData,
+      PhotoAlbumDocumentDataPhotosItem,
+      PhotoAlbumDocumentDataSlicesSlice,
+      PhotographyDocument,
+      PhotographyDocumentData,
+      PhotographyDocumentDataSelectedPhotoAlbumsItem,
+      PhotographyDocumentDataSlicesSlice,
       ProjectsDocument,
       ProjectsDocumentData,
       ProjectsDocumentDataSlicesSlice,
@@ -666,6 +994,12 @@ declare module "@prismicio/client" {
       HeroSliceDefaultPrimary,
       HeroSliceVariation,
       HeroSliceDefault,
+      PhotoAlbumPhotoSlice,
+      PhotoAlbumPhotoSliceDefaultPrimary,
+      PhotoAlbumPhotoSliceFullWidthPrimary,
+      PhotoAlbumPhotoSliceVariation,
+      PhotoAlbumPhotoSliceDefault,
+      PhotoAlbumPhotoSliceFullWidth,
     };
   }
 }
