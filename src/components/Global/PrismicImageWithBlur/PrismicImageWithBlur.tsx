@@ -8,6 +8,8 @@ interface PrismicImageWithBlurProps {
   className?: string;
   width?: number;
   imgixParams?: Record<string, string>;
+  loading?: 'eager' | 'lazy';
+  priority?: boolean;
 }
 
 const PrismicImageWithBlur: React.FC<PrismicImageWithBlurProps> = async ({ field, ...props }) => {
