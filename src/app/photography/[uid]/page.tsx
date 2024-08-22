@@ -39,7 +39,7 @@ const PhotographyPage = async ({ params }: { params: { uid: string } }) => {
     }
 
     if (photo.style === 'Full width') {
-      photo.maxWidth = 1920;
+      photo.maxWidth = 2532;
     }
 
     return photo;
