@@ -31,7 +31,7 @@ export default async function RootLayout({
         <Header menuData={ menuData.data } />
         {children}
         <Footer />
-        <PrismicPreview repositoryName={repositoryName} />
+        {process.env.NODE_ENV === "production" ? null : (<PrismicPreview repositoryName={repositoryName} />)}
       </body>
     </html>
   )
