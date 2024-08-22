@@ -63,5 +63,10 @@
     line-height: 1.4;
     font-size: 1.125rem;
     text-align: justify;
+
+    @include max(lg) {
+      font-size: 1rem;
+      text-align: left;
+    }
   }
 }

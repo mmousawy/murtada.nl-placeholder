@@ -19,7 +19,7 @@ const ActiveLink = ({
 
   activeClassName = activeClassName || 'is-active';
 
-  const classes = `${ className ? className : '' } ${ pathname.startsWith(`/${props.href}`) ? activeClassName : '' }`.trim();
+  const classes = `${ className ? className : '' } ${ pathname.startsWith(`${props.href}`) ? activeClassName : '' }`.trim();
 
   return (
     <Link className={ classes } {...props}>
