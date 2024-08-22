@@ -8,12 +8,14 @@ import { components } from "@/slices";
 import Container from '@/components/Global/Container/Container';
 import PrismicImageWithBlur from '@/components/Global/PrismicImageWithBlur/PrismicImageWithBlur';
 
+export const metadata = {
+  title: 'About - Murtada al Mousawy',
+};
+
 const AboutPage = async () => {
   const client = createClient();
 
   const page: any = await client.getSingle('about');
-
-
 
   return (
     <div className={st.pageContainer}>

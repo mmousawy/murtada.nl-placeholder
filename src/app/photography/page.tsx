@@ -8,6 +8,10 @@ import { components } from "@/slices";
 import Container from '@/components/Global/Container/Container';
 import PhotoAlbum from '@/components/Global/PhotoAlbum/PhotoAlbum';
 
+export const metadata = {
+  title: 'Photography - Murtada al Mousawy',
+};
+
 const PhotographyPage = async () => {
   const client = createClient();
 

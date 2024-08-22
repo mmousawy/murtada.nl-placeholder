@@ -1,8 +1,7 @@
 import React from 'react';
-import { useRouter } from 'next/router';
 import { createClient } from '@/prismicio';
-import { PrismicRichText, SliceZone } from "@prismicio/react";
-import { components } from "@/slices";
+import { PrismicRichText } from "@prismicio/react";
+const client = createClient();
 
 import Container from '@/components/Global/Container/Container';
 
@@ -10,9 +9,23 @@ import st from '@/styles/page.module.scss';
 import st2 from './photo_album.module.scss';
 import PrismicImageWithBlur from '@/components/Global/PrismicImageWithBlur/PrismicImageWithBlur';
 
-const PhotographyPage = async ({ params }: { params: { uid: string } }) => {
-  const client = createClient();
+export async function generateMetadata({ params }: { params: { uid: string } }) {
+  const page: any = await client.getByUID('photo_album', params.uid);
 
+  return {
+    title: `${ page.data.title } (Photography album) - Murtada al Mousawy`,
+    openGraph: {
+      images: [
+        {
+          url: page.data.cover_image.url.replace('?auto=format,compress', '?w=1200&h=1200&format=auto&q=75&fit=crop'),
+          alt: page.data.cover_image.alt,
+        },
+      ],
+    }
+  };
+}
+
+const PhotographyPage = async ({ params }: { params: { uid: string } }) => {
   const page: any = await client.getByUID('photo_album', params.uid);
 
   page.data.photos = page.data.photos.map((photo: any) => {
