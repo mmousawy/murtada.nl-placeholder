@@ -13,7 +13,7 @@ interface PrismicImageWithBlurProps {
 }
 
 const PrismicImageWithBlur: React.FC<PrismicImageWithBlurProps> = async ({ field, ...props }) => {
-  const smallImgUrl = field.url?.replace(/\?auto=format,compress/gm, '\?w=20&format=auto');
+  const smallImgUrl = field.url?.replace(/\?.+/gm, '\?w=20&format=auto');
 
   const searchParams = new URLSearchParams(props.imgixParams);
 
