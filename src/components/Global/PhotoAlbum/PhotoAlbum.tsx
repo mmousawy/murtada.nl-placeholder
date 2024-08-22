@@ -11,7 +11,7 @@ const PhotoAlbum = async (photoAlbum: any, ...props: any) => {
 
   return (
     <Link className={st.album} href={ `/photography/${album.uid}` } {...props} >
-      <PrismicImageWithBlur loading="lazy" className={st.album__cover} width={384} field={album.data.cover_image} imgixParams={{ format: 'auto', fit: 'crop' }} />
+      <PrismicImageWithBlur loading="lazy" className={st.album__cover} width={384} field={album.data.cover_image} imgixParams={{ format: 'auto', fit: 'crop', q: '95' }} />
       <span className={st.title}>{ album.data.title } &mdash; { album.data.year }</span>
     </Link>
   );

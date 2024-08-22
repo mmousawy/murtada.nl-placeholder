@@ -60,7 +60,7 @@ const PhotographyPage = async ({ params }: { params: { uid: string } }) => {
         { page.data.photos.map((photo: any) => (
           <React.Fragment key={photo.id}>
             <div className={`${ st2.photo } ${ st2[`photo--orientation-${photo.orientation}`] }`}>
-              <PrismicImageWithBlur loading="lazy" field={photo.image} width={photo.maxWidth} imgixParams={{ format: 'auto', q: '75' }} />
+              <PrismicImageWithBlur loading="lazy" field={photo.image} width={photo.maxWidth} imgixParams={{ format: 'auto', q: '95' }} />
             </div>
           </React.Fragment>
         )) }
