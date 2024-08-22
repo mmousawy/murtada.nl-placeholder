@@ -21,7 +21,7 @@ const AboutPage = async () => {
         <h1 className={st2.title}>{page.data.title}</h1>
         <div className={st2.leftIntro}>
           <PrismicRichText field={page.data.left_intro} />
-          <PrismicImageWithBlur field={page.data.left_image} />
+          <PrismicImageWithBlur priority field={page.data.left_image} />
         </div>
         <div className={st2.rightIntro}>
           <PrismicRichText field={page.data.right_intro} />

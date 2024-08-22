@@ -28,7 +28,6 @@ const PrismicImageWithBlur: React.FC<PrismicImageWithBlurProps> = async ({ field
   return (
     <PrismicNextImage
       field={field}
-      priority
       placeholder='blur'
       blurDataURL={`data:image/png;base64,${base64str}`}
       className={st.image}

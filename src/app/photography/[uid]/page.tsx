@@ -15,8 +15,6 @@ const PhotographyPage = async ({ params }: { params: { uid: string } }) => {
 
   const page: any = await client.getByUID('photo_album', params.uid);
 
-  console.log(page.data.photos);
-
   page.data.photos = page.data.photos.map((photo: any) => {
     photo.maxWidth = 1200;
     photo.orientation = 'landscape';
@@ -49,7 +47,7 @@ const PhotographyPage = async ({ params }: { params: { uid: string } }) => {
         { page.data.photos.map((photo: any) => (
           <React.Fragment key={photo.id}>
             <div className={`${ st2.photo } ${ st2[`photo--orientation-${photo.orientation}`] }`}>
-              <PrismicImageWithBlur field={photo.image} width={photo.maxWidth} imgixParams={{ format: 'auto', q: '75' }} />
+              <PrismicImageWithBlur loading="lazy" field={photo.image} width={photo.maxWidth} imgixParams={{ format: 'auto', q: '75' }} />
             </div>
           </React.Fragment>
         )) }

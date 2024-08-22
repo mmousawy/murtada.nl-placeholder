@@ -21,9 +21,7 @@ const PhotographyPage = async () => {
         <h1 className={st2.title}>{page.data.title}</h1>
         <div className={st2.photoAlbums}>
           { photoAlbums.map((photoAlbum: any) => (
-            <>
             <PhotoAlbum key={photoAlbum.id} photoAlbum={photoAlbum} />
-            </>
           )) }
         </div>
       </Container>
