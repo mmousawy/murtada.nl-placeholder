@@ -1,7 +1,10 @@
 import React from 'react';
 import { createClient } from '@/prismicio';
-import { PrismicRichText } from "@prismicio/react";
+import * as prismicR from '@prismicio/richtext';
+import { PrismicRichText, SliceZone } from "@prismicio/react";
 const client = createClient();
+
+import { components } from "@/slices";
 
 import Container from '@/components/Global/Container/Container';
 
@@ -29,7 +32,7 @@ const BlogPostPage = async ({ params }: { params: { uid: string } }) => {
   const page: any = await client.getByUID('blog_post', params.uid);
 
   const niceDate = new Date(page.data.date);
-  const dateOptions = {
+  const dateOptions:  Intl.DateTimeFormatOptions  = {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
@@ -44,6 +47,7 @@ const BlogPostPage = async ({ params }: { params: { uid: string } }) => {
           <div className={st2.description}>
             <PrismicRichText field={page.data.content} />
           </div>
+          <SliceZone slices={page.data.slices} components={components} />
         </Container>
       </div>
     </>

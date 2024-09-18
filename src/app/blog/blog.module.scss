@@ -27,10 +27,10 @@
 }
 
 .blogPost {
-  display: block;
+  display: flex;
   border: 2px solid rgba(0, 0, 0, .2);
   border-radius: 3px;
-  padding: 1.5rem;
+  padding: 1rem;
   transition: all .2s;
 
   &:hover {
@@ -40,6 +40,14 @@
       color: var(--link);
       transition: all .2s;
     }
+  }
+
+  img {
+    width: 5rem;
+    height: 5rem;
+    object-fit: cover;
+    margin-right: 1.25rem;
+    border-radius: 3px;
   }
 
   h2 {
@@ -52,7 +60,13 @@
   }
 
   time {
-    opacity: .75;
-    font-style: italic;
+    opacity: .8;
+    font-size: .875rem;
   }
+}
+
+.blogPost__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }

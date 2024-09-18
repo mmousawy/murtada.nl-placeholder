@@ -192,7 +192,7 @@ interface BlogDocumentData {
 export type BlogDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithoutUID<Simplify<BlogDocumentData>, "blog", Lang>;
 
-type BlogPostDocumentDataSlicesSlice = never;
+type BlogPostDocumentDataSlicesSlice = ArticleImageSlice | RichTextBlockSlice;
 
 /**
  * Content for Blog post documents
@@ -208,17 +208,6 @@ interface BlogPostDocumentData {
    * - **Documentation**: https://prismic.io/docs/field#key-text
    */
   title: prismic.KeyTextField;
-
-  /**
-   * Content field in *Blog post*
-   *
-   * - **Field Type**: Rich Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: blog_post.content
-   * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
-   */
-  content: prismic.RichTextField;
 
   /**
    * Cover image field in *Blog post*
@@ -877,6 +866,51 @@ export type AllDocumentTypes =
   | ProjectsDocument;
 
 /**
+ * Primary content in *ArticleImage → Default → Primary*
+ */
+export interface ArticleImageSliceDefaultPrimary {
+  /**
+   * Image field in *ArticleImage → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: article_image.default.primary.image
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image: prismic.ImageField<never>;
+}
+
+/**
+ * Default variation for ArticleImage Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type ArticleImageSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<ArticleImageSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *ArticleImage*
+ */
+type ArticleImageSliceVariation = ArticleImageSliceDefault;
+
+/**
+ * ArticleImage Shared Slice
+ *
+ * - **API ID**: `article_image`
+ * - **Description**: ArticleImage
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type ArticleImageSlice = prismic.SharedSlice<
+  "article_image",
+  ArticleImageSliceVariation
+>;
+
+/**
  * Primary content in *Hero → Default → Primary*
  */
 export interface HeroSliceDefaultPrimary {
@@ -938,6 +972,51 @@ type HeroSliceVariation = HeroSliceDefault;
  */
 export type HeroSlice = prismic.SharedSlice<"hero", HeroSliceVariation>;
 
+/**
+ * Primary content in *RichTextBlock → Default → Primary*
+ */
+export interface RichTextBlockSliceDefaultPrimary {
+  /**
+   * Text field in *RichTextBlock → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: rich_text_block.default.primary.text
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  text: prismic.RichTextField;
+}
+
+/**
+ * Default variation for RichTextBlock Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type RichTextBlockSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<RichTextBlockSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *RichTextBlock*
+ */
+type RichTextBlockSliceVariation = RichTextBlockSliceDefault;
+
+/**
+ * RichTextBlock Shared Slice
+ *
+ * - **API ID**: `rich_text_block`
+ * - **Description**: RichTextBlock
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type RichTextBlockSlice = prismic.SharedSlice<
+  "rich_text_block",
+  RichTextBlockSliceVariation
+>;
+
 declare module "@prismicio/client" {
   interface CreateClient {
     (
@@ -981,10 +1060,18 @@ declare module "@prismicio/client" {
       ProjectsDocumentData,
       ProjectsDocumentDataSlicesSlice,
       AllDocumentTypes,
+      ArticleImageSlice,
+      ArticleImageSliceDefaultPrimary,
+      ArticleImageSliceVariation,
+      ArticleImageSliceDefault,
       HeroSlice,
       HeroSliceDefaultPrimary,
       HeroSliceVariation,
       HeroSliceDefault,
+      RichTextBlockSlice,
+      RichTextBlockSliceDefaultPrimary,
+      RichTextBlockSliceVariation,
+      RichTextBlockSliceDefault,
     };
   }
 }

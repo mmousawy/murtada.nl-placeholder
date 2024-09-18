@@ -4,8 +4,10 @@ import st2 from './blog.module.scss';
 
 import { createClient } from '@/prismicio';
 import { PrismicRichText, PrismicText, SliceZone } from "@prismicio/react";
-import Container from '@/components/Global/Container/Container';
 import Link from 'next/link';
+
+import Container from '@/components/Global/Container/Container';
+import PrismicImageWithBlur from '@/components/Global/PrismicImageWithBlur/PrismicImageWithBlur';
 
 export const metadata = {
   title: 'Blog - Murtada al Mousawy',
@@ -18,10 +20,8 @@ const BlogPage = async () => {
 
   const blogPosts = await client.getByType('blog_post', {
     orderings: { field: "document.first_publication_date", direction: "desc" },
-    fetch: ['blog_post.title', 'blog_post.date', 'blog_post.description'],
+    fetch: ['blog_post.title', 'blog_post.date', 'blog_post.description', 'blog_post.cover_image'],
   });
-
-  console.log(blogPosts);
 
   return (
     <div className={st.pageContainer}>
@@ -33,8 +33,11 @@ const BlogPage = async () => {
         <div className={st2.blogPosts}>
           { blogPosts.results.map((post: any) => (
             <Link key={post.id} className={st2.blogPost}  href={`/blog/${post.uid}`}>
-              <h2 className={st2.postTitle}>{ post.data.title }</h2>
-              <time className={st2.date}>{post.data.date}</time>
+              <PrismicImageWithBlur loading="lazy" width={128} field={post.data.cover_image} imgixParams={{ format: 'auto', fit: 'crop', q: '95' }} />
+              <div className={st2.blogPost__content}>
+                <h2 className={st2.postTitle}>{ post.data.title }</h2>
+                <time className={st2.date}>{post.data.date}</time>
+              </div>
             </Link>
           )) }
         </div>

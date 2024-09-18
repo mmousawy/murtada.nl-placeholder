@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import st from './PhotoAlbum.module.scss';
-import PrismicImageWithBlur from '../PrismicImageWithBlur/PrismicImageWithBlur';
+import PrismicImageWithBlur from '@/components/Global/PrismicImageWithBlur/PrismicImageWithBlur';
 
 import { createClient } from '@/prismicio';
 
