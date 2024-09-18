@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import { usePathname, useRouter } from 'next/navigation';
 
 import Navigation from '@/components/Navigation/Navigation';
 
@@ -14,8 +15,17 @@ type HeaderProps = {
 };
 
 const Header: React.FC<HeaderProps> = ({ menuData }: HeaderProps) => {
+  const pathname = usePathname();
+
   // Add style to header element when scrolled
   const [scrolled, setScrolled] = React.useState(false);
+  // Menu open state
+  const [menuOpen, setMenuOpen] = React.useState(false);
+
+  React.useEffect(() => {
+    // Close menu on route change
+    setMenuOpen(false);
+  }, [pathname]);
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -23,11 +33,20 @@ const Header: React.FC<HeaderProps> = ({ menuData }: HeaderProps) => {
       setScrolled(isScrolled);
     };
 
+    const handleResize = () => {
+      if (window.innerWidth > 576) {
+        setMenuOpen(false);
+      }
+    }
+
+    handleResize();
     handleScroll();
 
+    window.addEventListener('resize', handleResize);
     window.addEventListener('scroll', handleScroll);
 
     return () => {
+      window.removeEventListener('resize', handleResize);
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
@@ -42,9 +61,9 @@ const Header: React.FC<HeaderProps> = ({ menuData }: HeaderProps) => {
             <Image src="/logo.svg" alt="Murtada.nl logo" width={48} height={48} />
           </Link>
         </div>
-        <Navigation menuData={ menuData } />
-        <a href="mailto:info@murtada.nl" className={st.contactButton}>Contact me</a>
+        <Navigation menuData={ menuData } menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
       </Container>
+      <div className={`${st.header__background} ${menuOpen ? st['header__background--menu-open'] : ''}`}></div>
     </header>
   );
 };

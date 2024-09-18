@@ -1,8 +1,31 @@
+@import '@/styles/mixins';
+
 .navList {
   align-items: center;
   display: flex;
   list-style: none;
   gap: .75rem;
+
+  @include max(sm) {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    li {
+      @for $i from 1 through 5 {
+        &:nth-child(#{$i}) {
+          transition: all .3s ease-in-out;
+          transition-delay: .4s;
+          transform: translateY(-1rem);
+          opacity: 0;
+        }
+      }
+    }
+
+    a {
+      font-size: 1.375rem;
+    }
+  }
 
   a {
     font-weight: 700;
@@ -15,4 +38,144 @@
   text-decoration: underline;
   text-underline-offset: .5em;
   text-decoration-thickness: 2px;
+
+  @include max(sm) {
+    text-underline-offset: .375em;
+  }
+}
+
+.navigation {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+
+  @include max(sm) {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    top: 4.5rem;
+    left: 0;
+    right: 0;
+    height: calc(100vmax - 4.5rem);
+    padding: 2rem;
+    visibility: hidden;
+    transition: all .3s ease-in-out;
+    opacity: 0;
+    transform: translateY(-2rem);
+  }
+}
+
+.navigation--open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+
+  @include max(sm) {
+    .navList li {
+      transform: translate(0);
+      opacity: 1;
+
+      @for $i from 1 through 5 {
+        &:nth-child(#{$i}) {
+          transition-delay: $i * 0.1s;
+        }
+      }
+    }
+  }
+
+  .contactButtonMobile {
+    transition-delay: .5s;
+    opacity: 1;
+  }
+}
+
+.menuButton {
+  appearance: none;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display:block;
+  height: 30px;
+  width: 30px;
+
+  @include min(sm) {
+    display: none;
+  }
+}
+
+/* common styles*/
+.menuIcon, .menuIcon::before, .menuIcon::after, .menuIcon--close, .menuIcon--close::before, .menuIcon--close::after {
+  content: '';
+  display: block;
+  height: 2.7px;
+  position: absolute;
+  width: 24px;
+  border-radius: 20px;
+  transition: top ease .2s, transform ease .2s .2s, background .2s ease .2s;
+  background: #000;
+}
+
+/* bottom line of hamburger */
+.menuIcon::before {
+  top: -7px;
+  transition: background ease .2s,top ease .2s .2s, transform ease .2s;
+}
+
+/* top line of hamburger */
+.menuIcon::after {
+  top: 7px;
+  transition: background ease .2s,top ease .2s .2s, transform ease .2s;
+}
+
+.menuIcon--close {
+  background: transparent;
+}
+
+/* line one of close icon */
+.menuIcon--close::before {
+  transform: rotate(45deg);
+  top: 0px;
+  background: #000;
+}
+
+/* line two of close icon */
+.menuIcon--close::after {
+  transform: rotate(-45deg);
+  top: 0px;
+  background: #000;
+}
+
+.contactButton,
+.contactButtonMobile {
+  background-color: #fff;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 0 0 2px var(--foreground);
+  padding: .3em .6em .4em;
+  font-weight: 700;
+  border-radius: 1px;
+  transition: box-shadow .2s, color .2s;
+
+  &:hover {
+    box-shadow: 0 0 0 2px var(--link);
+    color: var(--link);
+  }
+
+  @include max(sm) {
+    display: none;
+  }
+}
+
+.contactButtonMobile {
+  display: inline-block;
+  margin-top: auto;
+  font-size: 1.375rem;
+  text-align: center;
+  opacity: 0;
+  transition: opacity .3s ease-in-out;
+
+  @include min(sm) {
+    display: none;
+  }
 }

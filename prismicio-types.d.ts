@@ -116,6 +116,28 @@ type BlogDocumentDataSlicesSlice = never;
  */
 interface BlogDocumentData {
   /**
+   * Title field in *Blog*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blog.title
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  title: prismic.KeyTextField;
+
+  /**
+   * Description field in *Blog*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blog.description
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  description: prismic.RichTextField;
+
+  /**
    * Slice Zone field in *Blog*
    *
    * - **Field Type**: Slice Zone
@@ -176,6 +198,50 @@ type BlogPostDocumentDataSlicesSlice = never;
  * Content for Blog post documents
  */
 interface BlogPostDocumentData {
+  /**
+   * Title field in *Blog post*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blog_post.title
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  title: prismic.KeyTextField;
+
+  /**
+   * Content field in *Blog post*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blog_post.content
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  content: prismic.RichTextField;
+
+  /**
+   * Cover image field in *Blog post*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blog_post.cover_image
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  cover_image: prismic.ImageField<never>;
+
+  /**
+   * Date field in *Blog post*
+   *
+   * - **Field Type**: Date
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blog_post.date
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#date
+   */
+  date: prismic.DateField;
+
   /**
    * Slice Zone field in *Blog post*
    *
@@ -872,81 +938,6 @@ type HeroSliceVariation = HeroSliceDefault;
  */
 export type HeroSlice = prismic.SharedSlice<"hero", HeroSliceVariation>;
 
-/**
- * Primary content in *PhotoAlbumPhoto → Default → Primary*
- */
-export interface PhotoAlbumPhotoSliceDefaultPrimary {
-  /**
-   * Image field in *PhotoAlbumPhoto → Default → Primary*
-   *
-   * - **Field Type**: Image
-   * - **Placeholder**: *None*
-   * - **API ID Path**: photo_album_photo.default.primary.image
-   * - **Documentation**: https://prismic.io/docs/field#image
-   */
-  image: prismic.ImageField<never>;
-}
-
-/**
- * Default variation for PhotoAlbumPhoto Slice
- *
- * - **API ID**: `default`
- * - **Description**: Default
- * - **Documentation**: https://prismic.io/docs/slice
- */
-export type PhotoAlbumPhotoSliceDefault = prismic.SharedSliceVariation<
-  "default",
-  Simplify<PhotoAlbumPhotoSliceDefaultPrimary>,
-  never
->;
-
-/**
- * Primary content in *PhotoAlbumPhoto → Full Width → Primary*
- */
-export interface PhotoAlbumPhotoSliceFullWidthPrimary {
-  /**
-   * Image field in *PhotoAlbumPhoto → Full Width → Primary*
-   *
-   * - **Field Type**: Image
-   * - **Placeholder**: *None*
-   * - **API ID Path**: photo_album_photo.fullWidth.primary.image
-   * - **Documentation**: https://prismic.io/docs/field#image
-   */
-  image: prismic.ImageField<never>;
-}
-
-/**
- * Full Width variation for PhotoAlbumPhoto Slice
- *
- * - **API ID**: `fullWidth`
- * - **Description**: Default
- * - **Documentation**: https://prismic.io/docs/slice
- */
-export type PhotoAlbumPhotoSliceFullWidth = prismic.SharedSliceVariation<
-  "fullWidth",
-  Simplify<PhotoAlbumPhotoSliceFullWidthPrimary>,
-  never
->;
-
-/**
- * Slice variation for *PhotoAlbumPhoto*
- */
-type PhotoAlbumPhotoSliceVariation =
-  | PhotoAlbumPhotoSliceDefault
-  | PhotoAlbumPhotoSliceFullWidth;
-
-/**
- * PhotoAlbumPhoto Shared Slice
- *
- * - **API ID**: `photo_album_photo`
- * - **Description**: PhotoAlbumPhoto
- * - **Documentation**: https://prismic.io/docs/slice
- */
-export type PhotoAlbumPhotoSlice = prismic.SharedSlice<
-  "photo_album_photo",
-  PhotoAlbumPhotoSliceVariation
->;
-
 declare module "@prismicio/client" {
   interface CreateClient {
     (
@@ -994,12 +985,6 @@ declare module "@prismicio/client" {
       HeroSliceDefaultPrimary,
       HeroSliceVariation,
       HeroSliceDefault,
-      PhotoAlbumPhotoSlice,
-      PhotoAlbumPhotoSliceDefaultPrimary,
-      PhotoAlbumPhotoSliceFullWidthPrimary,
-      PhotoAlbumPhotoSliceVariation,
-      PhotoAlbumPhotoSliceDefault,
-      PhotoAlbumPhotoSliceFullWidth,
     };
   }
 }
