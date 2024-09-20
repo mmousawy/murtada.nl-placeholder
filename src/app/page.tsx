@@ -29,12 +29,12 @@ export default function Home() {
           <div className={st.aside}>
             <h1 className={st.title}><span className={st.name}>Murtada al Mousawy</span><br/>Senior Web Developer</h1>
             <div className={st.asideDetails}>
-              <span className={ st.asideItem }><span className={`${st.availabilityBullet} ${ st[`availabilityBullet--${availabilityStatus}`] }`}></span><Image src="/logos/io-digital.svg" width={24} height={24} /></span>
-              <a href="https://github.com/mmousawy" target="_blank"><Image src="/logos/github.svg" width={24} height={24} /></a>
-              <a href="https://x.com/mmousawy" target="_blank"><Image src="/logos/x.svg" width={24} height={24} /></a>
-              <a href="https://www.instagram.com/visualdoubts/" target="_blank"><Image src="/logos/instagram.svg" width={24} height={24} /></a>
-              <a href="https://www.linkedin.com/in/mmousawy/" target="_blank"><Image src="/logos/linkedin.svg" width={24} height={24} /></a>
-              <a href="mailto:info@murtada.nl"><Image src="/logos/email.svg" width={24} height={24} /></a>
+              <span className={ st.asideItem }><span className={`${st.availabilityBullet} ${ st[`availabilityBullet--${availabilityStatus}`] }`}></span><Image src="/logos/io-digital.svg" width={24} height={24} alt="iO digital logo" /></span>
+              <a href="https://github.com/mmousawy" className={ st.socialIcon } target="_blank"><Image src="/logos/github.svg" width={24} height={24} alt="Visit my GitHub profile" /></a>
+              <a href="https://x.com/mmousawy" className={ st.socialIcon } target="_blank"><Image src="/logos/x.svg" width={24} height={24} alt="Visit my X (Twitter) profile" /></a>
+              <a href="https://www.instagram.com/visualdoubts/" className={ st.socialIcon } target="_blank"><Image src="/logos/instagram.svg" width={24} height={24} alt="Visit my Instagram profile" /></a>
+              <a href="https://www.linkedin.com/in/mmousawy/" className={ st.socialIcon } target="_blank"><Image src="/logos/linkedin.svg" width={24} height={24} alt="Visit my LinkedIn profile" /></a>
+              <a href="mailto:info@murtada.nl" className={ st.socialIcon }><Image src="/logos/email.svg" width={24} height={24} alt="Send me an e-mail" /></a>
             </div>
           </div>
         </div>

@@ -80,7 +80,7 @@
 
   @include max(lg) {
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.5rem;
   }
 }
 
@@ -121,13 +121,25 @@
 .asideDetails {
   position: relative;
   display: flex;
+  flex-wrap: wrap;
   gap: 1.25rem;
   align-items: center;
   margin-top: 1.5rem;
 
-  @include max(lg) {
-    flex-direction: column;
-    margin-top: 2rem;
+  @include max(sm) {
+    justify-content: center;
+  }
+}
+
+.socialIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+
+  &:hover {
+    opacity: 1;
   }
 }
 
