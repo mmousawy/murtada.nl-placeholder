@@ -1,6 +1,13 @@
 import Image from 'next/image';
 import NoiseFilter from '@/components/NoiseFilter';
 
+import LogoIo from '../../public/logos/io.svg';
+import LogoGitHub from '../../public/logos/github.svg';
+import LogoX from '../../public/logos/x.svg';
+import LogoInstagram from '../../public/logos/instagram.svg';
+import LogoLinkedIn from '../../public/logos/linkedin.svg';
+import LogoEmail from '../../public/logos/email.svg';
+
 import st from '@/styles/page.module.scss';
 
 export default function Home() {
@@ -29,23 +36,27 @@ export default function Home() {
           <div className={st.aside}>
             <h1 className={st.title}><span className={st.name}>Murtada al Mousawy</span><br/>Senior Web Developer</h1>
             <div className={st.asideDetails}>
-              <span className={ st.asideItem }><span className={`${st.availabilityBullet} ${ st[`availabilityBullet--${availabilityStatus}`] }`}></span><Image src="/logos/io-digital.svg" width={24} height={24} alt="iO digital logo" /></span>
-              <a href="https://github.com/mmousawy" className={ st.socialIcon } target="_blank"><Image src="/logos/github.svg" width={24} height={24} alt="Visit my GitHub profile" /></a>
-              <a href="https://x.com/mmousawy" className={ st.socialIcon } target="_blank"><Image src="/logos/x.svg" width={24} height={24} alt="Visit my X (Twitter) profile" /></a>
-              <a href="https://www.instagram.com/visualdoubts/" className={ st.socialIcon } target="_blank"><Image src="/logos/instagram.svg" width={24} height={24} alt="Visit my Instagram profile" /></a>
-              <a href="https://www.linkedin.com/in/mmousawy/" className={ st.socialIcon } target="_blank"><Image src="/logos/linkedin.svg" width={24} height={24} alt="Visit my LinkedIn profile" /></a>
-              <a href="mailto:info@murtada.nl" className={ st.socialIcon }><Image src="/logos/email.svg" width={24} height={24} alt="Send me an e-mail" /></a>
+              <span className={ st.asideItem }><span className={`${st.availabilityBullet} ${ st[`availabilityBullet--${availabilityStatus}`] }`}></span><LogoIo title="iO digital logo" /> Currently { availabilityStatus } at iO</span>
+              <div className={st.asideSocials}>
+                <a href="https://github.com/mmousawy" className={ st.socialIcon } target="_blank"><LogoGitHub title="Visit my GitHub profile" /></a>
+                <a href="https://x.com/mmousawy" className={ st.socialIcon } target="_blank"><LogoX title="Visit my X (Twitter) profile" /></a>
+                <a href="https://www.instagram.com/visualdoubts/" className={ st.socialIcon } target="_blank"><LogoInstagram title="Visit my Instagram profile" /></a>
+                <a href="https://www.linkedin.com/in/mmousawy/" className={ st.socialIcon } target="_blank"><LogoLinkedIn title="Visit my LinkedIn profile" /></a>
+                <a href="mailto:info@murtada.nl" className={ st.socialIcon }><LogoEmail title="Send me an e-mail" /></a>
+              </div>
             </div>
           </div>
         </div>
+        <div className={st.bg}>
+          <Image
+            className={st.bgImage}
+            src="/bg3.webp"
+            alt="Background image"
+            width={1920}
+            height={1080}
+          />
+        </div>
       </main>
-      <Image
-        className={st.bg}
-        src="/bg3.webp"
-        alt="Background image"
-        width={1920}
-        height={1080}
-      />
       <NoiseFilter />
     </>
   )
