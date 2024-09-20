@@ -4,6 +4,16 @@ import NoiseFilter from '@/components/NoiseFilter';
 import st from '@/styles/page.module.scss';
 
 export default function Home() {
+  const currentDate = new Date();
+  const utcHours = currentDate.getUTCHours();
+  const utcMinutes = currentDate.getUTCMinutes();
+  const utcWeekday = currentDate.getUTCDay();
+  const onejan = new Date(currentDate.getFullYear(), 0, 1);
+  const week = Math.ceil((((currentDate.getTime() - onejan.getTime()) / 86400000) + onejan.getDay() + 1) / 7);
+
+  // Set availability status based on UTC time (between 7:30 and 15:00) and weekday (Monday to Friday) except Monday of every even week of the year
+  const availabilityStatus = utcWeekday > 0 && utcWeekday < 6 && utcHours >= 7 && utcHours < 15 && !(utcWeekday === 1 && week % 2 === 0) ? 'available' : 'unavailable';
+
   return (
     <>
       <main className={st.main}>
@@ -19,31 +29,12 @@ export default function Home() {
           <div className={st.aside}>
             <h1 className={st.title}><span className={st.name}>Murtada al Mousawy</span><br/>Senior Web Developer</h1>
             <div className={st.asideDetails}>
-              <span className={ st.availabilityStatus }><span className={st.bullet}></span> Available for work</span>
-              <svg width="48" height="32" className={st.dots}>
-              <linearGradient id="gradient1">
-              <stop id="stop1" offset="0%" stopColor="#dddddd"/>
-              <stop id="stop2" offset="100%" stopColor="#222527"/>
-              </linearGradient>
-              <rect x="0" y="15" width="48" height="2" fill="url(#gradient1)" />
-                <path
-                  d="M 0 16 L 48 16"
-                  strokeMiterlimit="10"
-                  fill="none"
-                  stroke="#fff"
-                  strokeWidth="4"
-                  strokeDasharray="4"
-                  strokeDashoffset="0">
-                  <animate
-                    attributeName="stroke-dashoffset"
-                    values="48;0"
-                    dur="5s"
-                    calcMode="linear"
-                    repeatCount="indefinite"
-                  />
-                </path>
-              </svg>
-              <a href="mailto:info@murtada.nl" className={st.contactButton}>Contact me</a>
+              <span className={ st.asideItem }><span className={`${st.availabilityBullet} ${ st[`availabilityBullet--${availabilityStatus}`] }`}></span><Image src="/logos/io-digital.svg" width={24} height={24} /></span>
+              <a href="https://github.com/mmousawy" target="_blank"><Image src="/logos/github.svg" width={24} height={24} /></a>
+              <a href="https://x.com/mmousawy" target="_blank"><Image src="/logos/x.svg" width={24} height={24} /></a>
+              <a href="https://www.instagram.com/visualdoubts/" target="_blank"><Image src="/logos/instagram.svg" width={24} height={24} /></a>
+              <a href="https://www.linkedin.com/in/mmousawy/" target="_blank"><Image src="/logos/linkedin.svg" width={24} height={24} /></a>
+              <a href="mailto:info@murtada.nl"><Image src="/logos/email.svg" width={24} height={24} /></a>
             </div>
           </div>
         </div>

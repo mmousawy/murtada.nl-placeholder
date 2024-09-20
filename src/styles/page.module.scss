@@ -29,22 +29,32 @@
   // animation: fadeIn2 1s ease-out both;
 }
 
-.bullet {
+.availabilityBullet {
   height: 16px;
   position: relative;
-  margin-right: .4em;
+  margin-right: .5em;
   width: 8px;
   height: 8px;
   border-radius: 2px;
   box-shadow: inset 0 0 0 1px #ddd;
+
+  &--available {
+    &::before {
+      background-color: var(--green);
+    }
+  }
+
+  &--unavailable {
+    &::before {
+      background-color: var(--red);
+    }
+  }
 
   &::before {
     content: '';
     width: 8px;
     height: 8px;
     position: absolute;
-    background-color: var(--green);
-    animation: bulletPulse 2s infinite;
     border-radius: 2px;
   }
 }
@@ -111,6 +121,7 @@
 .asideDetails {
   position: relative;
   display: flex;
+  gap: 1.25rem;
   align-items: center;
   margin-top: 1.5rem;
 
@@ -120,16 +131,24 @@
   }
 }
 
-.availabilityStatus {
+.asideItem {
   display: flex;
   align-items: center;
   background-color: #fff;
   position: relative;
   z-index: 2;
-  box-shadow: 0 0 0 2px #dddddd;
+  border: 2px solid #ddd;
   padding: .3em .6em .4em;
   font-weight: 700;
-  border-radius: 1px;
+  border-radius: 3px;
+
+  img {
+    display: block;
+  }
+
+  &[a]:hover {
+    border-color: var(--link);
+  }
 }
 
 .contactButton {
