@@ -56,8 +56,8 @@ export default function Home() {
             height={1080}
           />
         </div>
+        <NoiseFilter />
       </main>
-      <NoiseFilter />
     </>
   )
 }
