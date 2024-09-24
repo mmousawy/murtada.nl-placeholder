@@ -30,6 +30,11 @@
   a {
     font-weight: 700;
     padding: .5em;
+
+    &:hover,
+    &:focus {
+      color: var(--link);
+    }
   }
 }
 
@@ -104,16 +109,21 @@
   }
 }
 
+.menuIcon {
+  margin-left: 3px;
+  margin-top: -1px;
+}
+
 /* common styles*/
 .menuIcon, .menuIcon::before, .menuIcon::after, .menuIcon--close, .menuIcon--close::before, .menuIcon--close::after {
   content: '';
   display: block;
-  height: 2.7px;
   position: absolute;
+  height: 2.7px;
   width: 24px;
   border-radius: 20px;
   transition: top ease .2s, transform ease .2s .2s, background .2s ease .2s;
-  background: #000;
+  background: var(--foreground);
 }
 
 /* bottom line of hamburger */
@@ -130,20 +140,22 @@
 
 .menuIcon--close {
   background: transparent;
+  margin-left: 3px;
+  margin-top: -1px;
 }
 
 /* line one of close icon */
 .menuIcon--close::before {
   transform: rotate(45deg);
   top: 0px;
-  background: #000;
+  background: var(--foreground);
 }
 
 /* line two of close icon */
 .menuIcon--close::after {
   transform: rotate(-45deg);
   top: 0px;
-  background: #000;
+  background: var(--foreground);
 }
 
 .contactButton,
@@ -157,7 +169,8 @@
   border-radius: 1px;
   transition: box-shadow .2s, color .2s;
 
-  &:hover {
+  &:hover,
+  &:focus {
     box-shadow: 0 0 0 2px var(--link);
     color: var(--link);
   }

@@ -4,6 +4,11 @@
   width: 100%;
   background-color: #fff;
   margin-top: auto;
+  font-size: 1.125rem;
+
+  @include max(sm) {
+    font-size: 1rem;
+  }
 }
 
 .container {
