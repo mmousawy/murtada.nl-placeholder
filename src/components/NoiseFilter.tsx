@@ -1,11 +1,10 @@
 'use client';
 
-import React from 'react';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import st from '@/styles/page.module.scss'
 
 const NoiseFilter = ({ /* Destructure your props here */ }) => {
-  const svgRef = React.useRef<SVGSVGElement>(null);
+  const svgRef = useRef<SVGSVGElement>(null);
 
   useEffect(() => {
     let requestId: number;

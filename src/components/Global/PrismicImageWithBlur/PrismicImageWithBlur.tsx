@@ -1,5 +1,4 @@
 import { PrismicNextImage } from '@prismicio/next';
-import Image from 'next/image'
 
 import st from './PrismicImageWithBlur.module.scss';
 

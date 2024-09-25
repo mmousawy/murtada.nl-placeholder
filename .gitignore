@@ -12,6 +12,11 @@
 /.next/
 /out/
 
+# Automaticly created by next.js
+/public/sitemap.xml
+/public/sitemap-0.xml
+/public/robots.txt
+
 # production
 /build
 
