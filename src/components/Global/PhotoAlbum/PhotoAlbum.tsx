@@ -4,13 +4,13 @@ import PrismicImageWithBlur from '@/components/Global/PrismicImageWithBlur/Prism
 
 import { createClient } from '@/prismicio';
 
-const PhotoAlbum = async (photoAlbum: any, ...props: any) => {
+const PhotoAlbum = async ({ photoAlbum, key }: { photoAlbum: any, key: number }) => {
   const client = createClient();
 
-  const album: any = await client.getByID(photoAlbum.photoAlbum.album.id);
+  const album: any = await client.getByID(photoAlbum.album.id);
 
   return (
-    <Link className={st.album} href={ `/photography/${album.uid}` } {...props} >
+    <Link className={st.album} href={ `/photography/${album.uid}` } key={ key }>
       <PrismicImageWithBlur loading="lazy" className={st.album__cover} width={384} field={album.data.cover_image} imgixParams={{ format: 'auto', fit: 'crop', q: '95' }} />
       <span className={st.title}>{ album.data.title } &mdash; { album.data.year }</span>
     </Link>

@@ -1,6 +1,5 @@
 import '@/styles/globals.scss';
 import type { Metadata } from 'next';
-import Image from 'next/image';
 import { Inter } from 'next/font/google';
 const inter = Inter({ subsets: ['latin'] });
 import { PrismicPreview } from '@prismicio/next';

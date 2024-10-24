@@ -32,7 +32,7 @@ export default function Home() {
                 <a href="https://x.com/mmousawy" className={ st.socialIcon } target="_blank"><LogoX title="Visit my X (Twitter) profile" /></a>
                 <a href="https://www.instagram.com/visualdoubts/" className={ st.socialIcon } target="_blank"><LogoInstagram title="Visit my Instagram profile" /></a>
                 <a href="https://www.linkedin.com/in/mmousawy/" className={ st.socialIcon } target="_blank"><LogoLinkedIn title="Visit my LinkedIn profile" /></a>
-                <a href="mailto:info@murtada.nl" className={ st.socialIcon }><LogoEmail title="Send me an e-mail" /></a>
+                <a href="mailto:hello@murtada.nl" className={ st.socialIcon }><LogoEmail title="Send me an e-mail" /></a>
               </div>
             </div>
           </div>

@@ -35,9 +35,9 @@ const Navigation: React.FC<NavigationProps> = ({ menuData, menuOpen, setMenuOpen
             </li>
           )) }
         </ul>
-        <a href="mailto:info@murtada.nl" className={st.contactButtonMobile}>Contact me</a>
+        <a href="mailto:hello@murtada.nl" className={st.contactButtonMobile}>Contact me</a>
       </nav>
-      <a href="mailto:info@murtada.nl" className={st.contactButton}>Contact me</a>
+      <a href="mailto:hello@murtada.nl" className={st.contactButton}>Contact me</a>
     </>
   );
 };
