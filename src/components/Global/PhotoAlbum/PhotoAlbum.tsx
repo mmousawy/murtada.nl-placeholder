@@ -7,6 +7,10 @@ import { createClient } from '@/prismicio';
 const PhotoAlbum = async ({ photoAlbum, key }: { photoAlbum: any, key: number }) => {
   const client = createClient();
 
+  if (photoAlbum?.album?.id === undefined) {
+    return null;
+  }
+
   const album: any = await client.getByID(photoAlbum.album.id);
 
   return (

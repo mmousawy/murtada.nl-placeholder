@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: { params: { uid: string } }) 
 const PhotographyPage = async ({ params }: { params: { uid: string } }) => {
   const page: any = await client.getByUID('photo_album', params.uid);
 
-  page.data.photos = page.data.photos.filter((photo: any) => photo.image.dimensions).map((photo: any) => {
+  page.data.photos = page.data.photos.map((photo: any) => {
     photo.maxWidth = 1344;
 
     // Photo ratio
