@@ -6,6 +6,7 @@ interface PrismicImageWithBlurProps {
   field: any;
   className?: string;
   width?: number;
+  height?: number;
   imgixParams?: Record<string, string>;
   loading?: 'eager' | 'lazy';
   priority?: boolean;

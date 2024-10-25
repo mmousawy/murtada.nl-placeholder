@@ -29,13 +29,16 @@ const PhotographyPage = async ({ params }: { params: { uid: string } }) => {
   const page: any = await client.getByUID('photo_album', params.uid);
 
   page.data.photos = page.data.photos.filter((photo: any) => photo.image.dimensions).map((photo: any) => {
-
-
     photo.maxWidth = 1344;
+
+    // Photo ratio
+    const ratio = photo.image.dimensions.width / photo.image.dimensions.height;
+
+    // Default orientation
     photo.orientation = 'landscape';
 
-    // If image height is greater than width, set max width to 600
-    if (photo.image.dimensions.height > photo.image.dimensions.width) {
+    // Check if photo is portrait
+    if (ratio < 1) {
       photo.maxWidth = 640;
       photo.orientation = 'portrait';
     }
@@ -43,6 +46,9 @@ const PhotographyPage = async ({ params }: { params: { uid: string } }) => {
     if (photo.style === 'Full width') {
       photo.maxWidth = 2560;
     }
+
+    // Calculate height based on aspect ratio and maxWidth
+    photo.maxHeight = Math.round(photo.maxWidth / ratio);
 
     return photo;
   });
@@ -62,7 +68,7 @@ const PhotographyPage = async ({ params }: { params: { uid: string } }) => {
         { page.data.photos.map((photo: any) => (
           <React.Fragment key={photo.id}>
             <div className={`${ st2.photo } ${ st2[`photo--orientation-${photo.orientation}`] }`}>
-              <PrismicImageWithBlur loading="lazy" field={photo.image} width={photo.maxWidth} imgixParams={{ format: 'auto', q: '95' }} />
+              <PrismicImageWithBlur loading="lazy" field={photo.image} width={photo.maxWidth} height={photo.maxHeight} imgixParams={{ format: 'auto', q: '95' }} />
             </div>
           </React.Fragment>
         )) }
