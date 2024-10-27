@@ -1,0 +1,43 @@
+@import '@/styles/mixins';
+
+.socials {
+  position: relative;
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+
+  @include max(lg) {
+    justify-content: center;
+  }
+}
+
+.socialIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+
+  svg {
+    display: block;
+    width: 1.5rem;
+    height: 1.5rem;
+    color: #444;
+    transition: fill .2s;
+  }
+
+  &:hover,
+  &:focus {
+    opacity: 1;
+    filter:
+      drop-shadow(0 2px 2px #fff)
+      drop-shadow(2px 0 2px #fff)
+      drop-shadow(0 -2px 2px #fff)
+      drop-shadow(-2px 0 2px #fff)
+    ;
+
+    svg {
+      fill: var(--primary);
+    }
+  }
+}

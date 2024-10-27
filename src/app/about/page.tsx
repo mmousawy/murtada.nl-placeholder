@@ -7,6 +7,7 @@ import { PrismicRichText, PrismicText, SliceZone } from "@prismicio/react";
 import { components } from "@/slices";
 import Container from '@/components/Global/Container/Container';
 import PrismicImageWithBlur from '@/components/Global/PrismicImageWithBlur/PrismicImageWithBlur';
+import Socials from '@/components/Socials/Socials';
 
 export const metadata = {
   title: 'About - Murtada al Mousawy',
@@ -27,6 +28,10 @@ const AboutPage = async () => {
         </div>
         <div className={st2.rightIntro}>
           <PrismicRichText field={page.data.right_intro} />
+          <div className={st2.socialsHolder}>
+            <p>You can also find me on:</p>
+            <Socials />
+          </div>
         </div>
       </Container>
       <SliceZone slices={page.data.slices} components={components} />
