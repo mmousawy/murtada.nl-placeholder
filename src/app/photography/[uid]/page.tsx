@@ -53,6 +53,9 @@ const PhotographyPage = async ({ params }: { params: { uid: string } }) => {
     return photo;
   });
 
+  let portraitImageCounter = 0;
+  let renderBreak = false;
+
   return (
     <>
       <div className={st.pageContainer}>
@@ -65,13 +68,27 @@ const PhotographyPage = async ({ params }: { params: { uid: string } }) => {
         </Container>
       </div>
       <div className={st2.photos}>
-        { page.data.photos.map((photo: any) => (
-          <React.Fragment key={photo.id}>
-            <div className={`${ st2.photo } ${ st2[`photo--orientation-${photo.orientation}`] }`}>
-              <PrismicImageWithBlur loading="lazy" field={photo.image} width={photo.maxWidth} height={photo.maxHeight} imgixParams={{ format: 'auto', q: '95' }} />
-            </div>
-          </React.Fragment>
-        )) }
+        { page.data.photos.map((photo: any, photoIndex: number) => {
+          renderBreak = false;
+          portraitImageCounter = photo.orientation === 'portrait' ? portraitImageCounter + 1 : 0;
+
+          // If 3 portrait images in a row, add a break
+          if (portraitImageCounter === 3) {
+            renderBreak = true;
+            portraitImageCounter = 0;
+          }
+
+          return (
+            <React.Fragment key={photo.id}>
+              { renderBreak && (
+                <div className={st2.break}></div>
+              ) }
+              <div className={`${ st2.photo } ${ st2[`photo--orientation-${photo.orientation}`] }`}>
+                <PrismicImageWithBlur loading="lazy" field={photo.image} width={photo.maxWidth}  imgixParams={{ format: 'auto', q: '95' }} />
+              </div>
+            </React.Fragment>
+          )
+        } ) }
       </div>
     </>
   );

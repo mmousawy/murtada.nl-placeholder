@@ -11,7 +11,7 @@ const Footer: FC = () => {
 
   return (
     <footer className={st.footer}>
-      <Container classNames={`${st.container}`} variant={pathname.includes('/blog/') ? 'slim' : undefined}>
+      <Container classNames={`${st.container}`} variant={pathname.includes('/blog/') ? 'slim' : pathname.includes('/photography/') ? 'centered' : undefined}>
         &copy; {new Date().getFullYear()} Murtada al Mousawy
       </Container>
     </footer>
