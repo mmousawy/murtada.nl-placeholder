@@ -12,26 +12,26 @@
     "slicemachine": "start-slicemachine"
   },
   "dependencies": {
-    "@prismicio/client": "^7.3.1",
+    "@prismicio/client": "^7.12.0",
     "@prismicio/helpers": "^2.3.9",
-    "@prismicio/next": "^1.3.6",
-    "@prismicio/react": "^2.7.3",
+    "@prismicio/next": "^1.7.1",
+    "@prismicio/react": "^2.9.1",
     "@svgr/webpack": "^8.1.0",
-    "concurrently": "^8.2.1",
-    "next": "^14.2.11",
+    "concurrently": "^9.1.0",
+    "next": "^15.0.3",
     "next-sitemap": "^4.2.3",
     "react": "^18",
     "react-dom": "^18"
   },
   "devDependencies": {
-    "@slicemachine/adapter-next": "^0.3.42",
-    "@types/node": "^20",
+    "@slicemachine/adapter-next": "^0.3.57",
+    "@types/node": "^22",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "eslint": "^8",
-    "eslint-config-next": "13.5.4",
-    "sass": "^1.69.1",
-    "slice-machine-ui": "^2.2.1",
+    "eslint": "^9",
+    "eslint-config-next": "15.0.3",
+    "sass": "^1.81.0",
+    "slice-machine-ui": "^2.10.3",
     "typescript": "^5"
   }
 }
