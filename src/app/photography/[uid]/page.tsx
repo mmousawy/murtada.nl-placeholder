@@ -9,8 +9,11 @@ import st from '@/styles/page.module.scss';
 import st2 from './photo_album.module.scss';
 import PrismicImageWithBlur from '@/components/Global/PrismicImageWithBlur/PrismicImageWithBlur';
 
-export async function generateMetadata({ params }: { params: { uid: string } }) {
-  const page: any = await client.getByUID('photo_album', params.uid);
+type tParams = Promise<{ uid: string }>;
+
+export async function generateMetadata(props: { params: tParams }) {
+  const { uid } = await props.params;
+  const page: any = await client.getByUID('photo_album', uid);
 
   return {
     title: `${ page.data.title } (Photography album) - Murtada al Mousawy`,
@@ -25,8 +28,9 @@ export async function generateMetadata({ params }: { params: { uid: string } }) 
   };
 }
 
-const PhotographyPage = async ({ params }: { params: { uid: string } }) => {
-  const page: any = await client.getByUID('photo_album', params.uid);
+const PhotographyPage = async (props: { params: tParams }) => {
+  const { uid } = await props.params;
+  const page: any = await client.getByUID('photo_album', uid);
 
   page.data.photos = page.data.photos.map((photo: any) => {
     photo.maxWidth = 1344;

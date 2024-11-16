@@ -1,6 +1,5 @@
 import React from 'react';
 import { createClient } from '@/prismicio';
-import * as prismicR from '@prismicio/richtext';
 import { PrismicRichText, SliceZone } from "@prismicio/react";
 const client = createClient();
 
@@ -10,10 +9,13 @@ import Container from '@/components/Global/Container/Container';
 
 import st from '@/styles/page.module.scss';
 import st2 from './blog_post.module.scss';
-import PrismicImageWithBlur from '@/components/Global/PrismicImageWithBlur/PrismicImageWithBlur';
+import { PageProps } from '../../../../.next/types/app/page';
 
-export async function generateMetadata({ params }: { params: { uid: string } }) {
-  const page: any = await client.getByUID('blog_post', params.uid);
+type tParams = Promise<{ uid: string }>;
+
+export async function generateMetadata(props: { params: tParams }) {
+  const { uid } = await await props.params;
+  const page: any = await client.getByUID('blog_post', uid);
 
   return {
     title: `${ page.data.title } - Murtada al Mousawy`,
@@ -28,8 +30,9 @@ export async function generateMetadata({ params }: { params: { uid: string } }) 
   };
 }
 
-const BlogPostPage = async ({ params }: { params: { uid: string } }) => {
-  const page: any = await client.getByUID('blog_post', params.uid);
+const BlogPostPage = async (props: { params: tParams }) => {
+  const { uid } = await await props.params;
+  const page: any = await client.getByUID('blog_post', uid);
 
   const niceDate = new Date(page.data.date);
   const dateOptions:  Intl.DateTimeFormatOptions  = {
