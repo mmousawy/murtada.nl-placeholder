@@ -1,6 +1,7 @@
 import PrismicImageWithBlur from "@/components/Global/PrismicImageWithBlur/PrismicImageWithBlur";
 import { Content } from "@prismicio/client";
 import { SliceComponentProps } from "@prismicio/react";
+import { JSX } from "react";
 
 /**
  * Props for `ArticleImage`.

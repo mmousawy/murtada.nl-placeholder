@@ -4,6 +4,7 @@ import { PrismicRichText, SliceComponentProps } from "@prismicio/react";
 import Container from '@/components/Global/Container/Container';
 
 import st from './Hero.module.scss';
+import { JSX } from "react";
 
 export type HeroProps = SliceComponentProps<Content.HeroSlice>;
 
