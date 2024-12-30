@@ -1,3 +1,5 @@
+@use "sass:map";
+
 $breakpoints: (
   xs: 0,
   sm: 576px,
@@ -8,7 +10,7 @@ $breakpoints: (
 );
 
 @mixin min($size) {
-  $breakpoint: map-get($breakpoints, $size);
+  $breakpoint: map.get($breakpoints, $size);
 
   @media screen and (min-width: #{$breakpoint + 1}) {
     @content;
@@ -16,7 +18,7 @@ $breakpoints: (
 }
 
 @mixin max($size) {
-  $breakpoint: map-get($breakpoints, $size);
+  $breakpoint: map.get($breakpoints, $size);
 
   @media screen and (max-width: $breakpoint) {
     @content;
@@ -24,8 +26,8 @@ $breakpoints: (
 }
 
 @mixin range($sizeMin, $sizeMax) {
-  $breakpointMin: map-get($breakpoints, $sizeMin);
-  $breakpointMax: map-get($breakpoints, $sizeMax);
+  $breakpointMin: map.get($breakpoints, $sizeMin);
+  $breakpointMax: map.get($breakpoints, $sizeMax);
 
   @media screen and (min-width: #{$breakpointMin + 1}) and (max-width: $breakpointMax) {
     @content;

@@ -1,4 +1,4 @@
-@import '@/styles/mixins';
+@use '@/styles/mixins';
 
 .availabilityBullet {
   height: 16px;
@@ -56,7 +56,7 @@
     border-color: var(--link);
   }
 
-  @include max(lg) {
+  @include mixins.max(lg) {
     align-self: center;
   }
 }

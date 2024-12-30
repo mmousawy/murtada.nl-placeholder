@@ -1,4 +1,4 @@
-@import '@/styles/mixins';
+@use '@/styles/mixins';
 
 .socials {
   position: relative;
@@ -6,7 +6,7 @@
   flex-wrap: wrap;
   gap: 1.25rem;
 
-  @include max(lg) {
+  @include mixins.max(lg) {
     justify-content: center;
   }
 }

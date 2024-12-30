@@ -1,4 +1,4 @@
-@import 'mixins';
+@use 'mixins';
 
 .bg {
   position: absolute;
@@ -46,7 +46,7 @@
   padding: $padding;
   padding-top: 5rem + $padding;
 
-  @include max(lg) {
+  @include mixins.max(lg) {
     padding: 4.5rem + 2rem  1rem 2rem;
   }
 }
@@ -59,7 +59,7 @@
   gap: 2.5rem;
   margin: auto;
 
-  @include max(lg) {
+  @include mixins.max(lg) {
     flex-direction: column;
     gap: 1.5rem;
   }
@@ -71,7 +71,7 @@
   border-radius: 1px;
   background-color: #fff;
 
-  @include max(lg) {
+  @include mixins.max(lg) {
     box-shadow: 0 0 0 3px var(--foreground);
     width: 156px;
     height: 156px;
@@ -89,7 +89,7 @@
     font-size: 2.66rem;
   }
 
-  @include max(lg) {
+  @include mixins.max(lg) {
     font-size: 1.7rem;
     text-align: center;
 
@@ -107,7 +107,7 @@
   margin-top: 1.25rem;
   gap: 1rem;
 
-  @include max(lg) {
+  @include mixins.max(lg) {
     gap: 1.5rem;
     justify-content: center;
     display: flex;
@@ -129,13 +129,13 @@
     color: var(--link);
   }
 
-  @include max(lg) {
+  @include mixins.max(lg) {
     flex-grow: 1;
   }
 }
 
 .dots {
-  @include max(lg) {
+  @include mixins.max(lg) {
     transform: rotate(90deg);
     height: 2rem;
   }
@@ -148,7 +148,7 @@
   max-width: var(--max-width);
   margin: 0 auto;
 
-  @include max(lg) {
+  @include mixins.max(lg) {
     padding-top: 4.5rem + 2rem;
   }
 }

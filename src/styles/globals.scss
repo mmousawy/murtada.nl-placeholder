@@ -25,6 +25,9 @@ body {
   color: var(--foreground);
   display: flex;
   flex-direction: column;
+  // scroll-timeline: --pageScrollY y;
+  // /* Firefox supports the older "vertical" syntax */
+  // scroll-timeline: --pageScrollY vertical;
 
   > * {
     width: 100%;

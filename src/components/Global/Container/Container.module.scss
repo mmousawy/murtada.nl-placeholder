@@ -1,4 +1,4 @@
-@import '@/styles/mixins';
+@use '@/styles/mixins';
 
 .container {
   justify-content: space-between;
@@ -6,7 +6,7 @@
   max-width: var(--max-width);
   margin: 0 auto;
 
-  @include min(lg) {
+  @include mixins.min(lg) {
     padding: 2rem 4rem;
 
     &.less-padding {
@@ -14,11 +14,11 @@
     }
   }
 
-  @include range(sm, lg) {
+  @include mixins.range(sm, lg) {
     padding: 1rem 2rem;
   }
 
-  @include max(sm) {
+  @include mixins.max(sm) {
     padding: 1rem 1rem;
   }
 }

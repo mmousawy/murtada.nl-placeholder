@@ -25,9 +25,7 @@ const PhotographyPage = async () => {
         <h1 className={st2.title}>{page.data.title}</h1>
         <div className={st2.photoAlbums}>
           { photoAlbums.map((photoAlbum: any) => (
-            <React.Fragment key={photoAlbum.id}>
-              <PhotoAlbum photoAlbum={photoAlbum} />
-            </React.Fragment>
+            <PhotoAlbum photoAlbum={photoAlbum} key={photoAlbum.id} />
           )) }
         </div>
       </Container>

@@ -1,4 +1,4 @@
-@import '@/styles/mixins';
+@use '@/styles/mixins';
 
 .navList {
   align-items: center;
@@ -6,7 +6,7 @@
   list-style: none;
   gap: .75rem;
 
-  @include max(sm) {
+  @include mixins.max(sm) {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
@@ -44,7 +44,7 @@
   text-underline-offset: .5em;
   text-decoration-thickness: 2px;
 
-  @include max(sm) {
+  @include mixins.max(sm) {
     text-underline-offset: .375em;
   }
 }
@@ -54,7 +54,7 @@
   left: 50%;
   transform: translateX(-50%);
 
-  @include max(sm) {
+  @include mixins.max(sm) {
     position: fixed;
     display: flex;
     flex-direction: column;
@@ -76,7 +76,7 @@
   pointer-events: auto;
   transform: translateY(0);
 
-  @include max(sm) {
+  @include mixins.max(sm) {
     .navList li {
       transform: translate(0);
       opacity: 1;
@@ -104,7 +104,7 @@
   height: 30px;
   width: 30px;
 
-  @include min(sm) {
+  @include mixins.min(sm) {
     display: none;
   }
 }
@@ -175,7 +175,7 @@
     color: var(--link);
   }
 
-  @include max(sm) {
+  @include mixins.max(sm) {
     display: none;
   }
 }
@@ -188,7 +188,7 @@
   opacity: 0;
   transition: opacity .3s ease-in-out;
 
-  @include min(sm) {
+  @include mixins.min(sm) {
     display: none;
   }
 }

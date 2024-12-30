@@ -1,4 +1,4 @@
-@import '@/styles/mixins';
+@use '@/styles/mixins';
 
 .header {
   position: fixed;
@@ -7,10 +7,15 @@
   left: 0;
   width: 100%;
   transition: box-shadow .2s;
+
+  // animation-name: hideHeader;
+  // animation-duration: 1ms; /* Firefox requires this to apply the animation */
+  // animation-timeline: --pageScrollY;
+
   img {
     display: block;
 
-    @include max(sm) {
+    @include mixins.max(sm) {
       width: 2.5rem;
       height: 2.5rem;
     }
@@ -45,4 +50,14 @@
   width: 100%;
   padding-top: 1rem;
   padding-bottom: 1rem;
+}
+
+@keyframes hideHeader {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg)
+  }
 }
