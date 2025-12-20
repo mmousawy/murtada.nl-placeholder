@@ -145,19 +145,29 @@ const Navigation: React.FC<NavigationProps> = ({ menuData, menuOpen, setMenuOpen
     const handleMouseMove = (e: MouseEvent) => {
       const target = e.target as Node;
       
-      // Check if mouse is over any nav link
+      // Check if mouse is over any nav link or still within nav
       const isOverLink = linkRefs.current.some(link => link && link.contains(target));
+      const isInNav = nav.contains(target);
       
       if (!isOverLink && hoveredIndex !== null) {
-        // Mouse is not over any link but we have a hoveredIndex - start delay timer
-        if (mouseLeaveTimeoutRef.current) {
-          clearTimeout(mouseLeaveTimeoutRef.current);
+        // Mouse is not over any link
+        if (isInNav) {
+          // Still in nav - cancel any timeout, keep stickyIndex (indicator stays on last hovered)
+          if (mouseLeaveTimeoutRef.current) {
+            clearTimeout(mouseLeaveTimeoutRef.current);
+            mouseLeaveTimeoutRef.current = null;
+          }
+        } else {
+          // Left nav entirely - start delay timer to revert to active link
+          if (mouseLeaveTimeoutRef.current) {
+            clearTimeout(mouseLeaveTimeoutRef.current);
+          }
+          mouseLeaveTimeoutRef.current = setTimeout(() => {
+            setHoveredIndex(null);
+            setStickyIndex(null);
+            mouseLeaveTimeoutRef.current = null;
+          }, 150);
         }
-        mouseLeaveTimeoutRef.current = setTimeout(() => {
-          setHoveredIndex(null);
-          setStickyIndex(null);
-          mouseLeaveTimeoutRef.current = null;
-        }, 100);
       } else if (isOverLink && mouseLeaveTimeoutRef.current) {
         // Mouse is over a link - cancel any pending timeout
         clearTimeout(mouseLeaveTimeoutRef.current);
