@@ -10,7 +10,6 @@ import { formatDate } from '@/utils/dateUtils';
 
 import st from '@/styles/page.module.scss';
 import st2 from './blog_post.module.scss';
-import { PageProps } from '../../../../.next/types/app/page';
 
 type tParams = Promise<{ uid: string }>;
 
