@@ -1,29 +1,30 @@
 @use '@/styles/mixins';
 
 .title {
+  font-family: var(--font-zilla-slab), serif;
   font-size: 3rem;
   font-weight: 600;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 
   @include mixins.range(sm, lg) {
     font-size: 2.5rem;
   }
 
   @include mixins.max(sm) {
-    font-size: 2rem;
+    font-size: 2.5rem;
   }
 }
 
 .article {
   section {
     + section {
-      margin-top: 1.25rem;
+      margin-top: 3rem;
     }
   }
 
   a {
     color: var(--link);
-    text-underline-offset: .1em;
+    text-underline-offset: .2em;
 
     &:not([href^="https://murtada.nl"])::after {
       content: "";
@@ -41,15 +42,17 @@
       opacity: .8;
     }
 
-    &:hover {
-      text-decoration: underline 2px;
+    &:hover,
+    &:focus {
+      text-decoration: underline 1px;
+      color: var(--primary);
     }
   }
 
   time {
     opacity: .8;
     font-size: 1.25rem;
-    margin-bottom: 1em;
+    margin-bottom: 3rem;
     display: block;
   }
 
@@ -66,8 +69,7 @@
 
   p {
     line-height: 1.4;
-    font-size: 1.125rem;
-    letter-spacing: -0.02em;
+    font-size: 1.25rem;
 
     + p {
       margin-top: 1em;

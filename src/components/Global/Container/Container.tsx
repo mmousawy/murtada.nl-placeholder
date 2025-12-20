@@ -1,6 +1,6 @@
 import st from './Container.module.scss';
 
-const Container = ({ children, classNames, variant }: { children: React.ReactNode, classNames?: string, variant?: 'less-padding'|'article'|'slim'|'centered' }) => {
+const Container = ({ children, classNames, variant }: { children: React.ReactNode, classNames?: string, variant?: 'less-padding'|'article'|'slim'|'centered'|'no-vertical-padding' }) => {
   if (variant && !st[variant]) {
     console.error(`Container variant "${variant}" not found in styles`);
   }

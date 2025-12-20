@@ -55,7 +55,7 @@ const Header: React.FC<HeaderProps> = ({ menuData }: HeaderProps) => {
 
   return (
     <header className={headerClassName}>
-      <Container classNames={st.container} variant={'less-padding'}>
+      <Container classNames={st.container} variant={'no-vertical-padding'}>
         <div className={st.logo}>
           <Link href="/" aria-label="Home">
             <Image src="/logo.svg" alt="Murtada.nl logo" width={48} height={48} />

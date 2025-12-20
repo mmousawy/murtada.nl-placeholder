@@ -1,0 +1,71 @@
+@use '../styles/mixins';
+
+.content {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.errorCode {
+  font-size: 6rem;
+  font-weight: 700;
+  color: var(--primary);
+  display: block;
+  line-height: 1;
+  margin-bottom: 1rem;
+
+  @include mixins.max(lg) {
+    font-size: 4rem;
+  }
+
+  @include mixins.max(sm) {
+    font-size: 3rem;
+  }
+}
+
+.message {
+  font-size: 1.25rem;
+  color: var(--foreground);
+  max-width: 600px;
+  line-height: 1.6;
+
+  @include mixins.max(lg) {
+    font-size: 1.1rem;
+  }
+
+  @include mixins.max(sm) {
+    font-size: 1rem;
+  }
+}
+
+.link {
+  background-color: #fff;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 0 0 3px var(--foreground);
+  padding: .5em 1em .6em;
+  font-weight: 600;
+  border-radius: 3px;
+  transition: transform .2s, box-shadow .2s, color .2s;
+  display: inline-block;
+  margin-top: 0.5rem;
+  font-size: 1.125rem;
+
+  &:hover,
+  &:focus {
+    transform: translate(-4px, -4px);
+    box-shadow: 0 0 0 3px var(--link), 2px 2px 0 3px var(--link), 4px 4px 0 3px var(--link);
+    opacity: .9;
+    color: var(--link);
+  }
+
+  &:active {
+    transform: translate(0);
+    box-shadow: 0 0 0 3px var(--link);
+  }
+}
+

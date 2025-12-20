@@ -19,19 +19,23 @@ body {
   overflow-x: hidden;
   min-height: 100svh;
   text-rendering: optimizeLegibility;
+  font-optical-sizing: auto;
 }
 
 body {
   color: var(--foreground);
   display: flex;
   flex-direction: column;
-  // scroll-timeline: --pageScrollY y;
-  // /* Firefox supports the older "vertical" syntax */
-  // scroll-timeline: --pageScrollY vertical;
 
   > * {
     width: 100%;
   }
+}
+
+h1, h2, h3, h4, h5, h6,
+.title {
+  font-family: var(--font-zilla-slab), serif;
+  font-weight: 400;
 }
 
 a {

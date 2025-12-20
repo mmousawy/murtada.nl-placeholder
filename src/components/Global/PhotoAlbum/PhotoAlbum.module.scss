@@ -1,11 +1,26 @@
+@use '@/styles/mixins';
+
 .album {
   transition: opacity .2s;
 
-  &:hover {
+  &:hover,
+  &:focus {
     opacity: .8;
+
+    .album__cover {
+      transform: translate(-4px, -4px);
+      box-shadow: 0 0 0 3px var(--link), 2px 2px 0 3px var(--link), 4px 4px 0 3px var(--link);
+    }
 
     .title {
       color: var(--link);
+    }
+  }
+
+  &:active {
+    .album__cover {
+      transform: translate(0);
+      box-shadow: 0 0 0 3px var(--link);
     }
   }
 }
@@ -13,14 +28,25 @@
 .album__cover{
   aspect-ratio: 1/1;
   display: block;
-  object-fit: cover;
   width: 100%;
   height: auto;
+  box-shadow: 0 0 0 3px var(--foreground);
+  border: 2px solid #fff;
+  border-radius: 3px;
+  background-color: #fff;
+  overflow: hidden;
+  transition: transform .2s, box-shadow .2s;
+
+  @include mixins.max(lg) {
+    box-shadow: 0 0 0 2px var(--foreground);
+  }
 }
 
 .title {
+  font-family: var(--font-zilla-slab), serif;
   display: block;
   margin-top: 1rem;
   font-size: 1.5rem;
+  font-weight: 600;
   transition: color .2s;
 }

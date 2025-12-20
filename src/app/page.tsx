@@ -19,9 +19,8 @@ export default function Home() {
             priority
           />
           <div className={st.aside}>
-            <h1 className={st.title}><span className={st.name}>Murtada al Mousawy</span><br/>Senior Web Developer</h1>
+            <h1 className={st.title}>Hi! I'm <span className={st.name}>Murtada al Mousawy</span>,<br/>web developer, photographer<br/>& meetup organizer</h1>
             <div className={st.asideDetails}>
-              <AvailabilityStatus />
               <Socials />
             </div>
           </div>
@@ -35,7 +34,6 @@ export default function Home() {
             height={1080}
           />
         </div>
-        <NoiseFilter />
       </main>
     </>
   )

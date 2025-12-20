@@ -1,0 +1,20 @@
+.loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  height: 3px;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.loader__bar {
+  height: 100%;
+  width: 100%;
+  background-color: var(--primary);
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 0.1s linear;
+}
+

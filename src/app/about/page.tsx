@@ -1,6 +1,7 @@
 import React from 'react';
 import st from '@/styles/page.module.scss';
 import st2 from './about.module.scss';
+import Image from 'next/image';
 
 import { createClient } from '@/prismicio';
 import { PrismicRichText, PrismicText, SliceZone } from "@prismicio/react";
@@ -21,15 +22,19 @@ const AboutPage = async () => {
   return (
     <div className={st.pageContainer}>
       <Container classNames={st2.grid}>
-        <h1 className={st2.title}>{page.data.title}</h1>
+        <h1 className={st2.title}>
+          {page.data.title}
+          <span className={st2.handWaveEmoji}>
+            <Image src="/hand-wave-emoji.png" alt="Hand wave emoji" fill priority />
+          </span>
+        </h1>
         <div className={st2.leftIntro}>
           <PrismicRichText field={page.data.left_intro} />
-          <PrismicImageWithBlur priority field={page.data.left_image} />
+          <PrismicImageWithBlur className={st2.articleImg} priority field={page.data.left_image} />
         </div>
         <div className={st2.rightIntro}>
           <PrismicRichText field={page.data.right_intro} />
           <div className={st2.socialsHolder}>
-            <p>You can also find me on:</p>
             <Socials />
           </div>
         </div>

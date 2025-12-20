@@ -83,7 +83,7 @@ const PhotographyPage = async (props: { params: tParams }) => {
           }
 
           return (
-            <React.Fragment key={photo.id}>
+            <React.Fragment key={photo.id || `photo-${photoIndex}`}>
               { renderBreak && (
                 <div className={st2.break}></div>
               ) }

@@ -12,6 +12,11 @@
     &.less-padding {
       padding: 1rem 4rem;
     }
+
+    &.no-vertical-padding {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
   }
 
   @include mixins.range(sm, lg) {

@@ -4,19 +4,18 @@
   width: 100%;
   background-color: #fff;
   margin-top: auto;
-  font-size: 1.125rem;
+  font-size: 1.25rem;
+
+  span {
+    opacity: .8;
+  }
 
   @include mixins.max(sm) {
-    font-size: 1rem;
+    font-size: 1.125rem;
   }
 }
 
 .container {
-  padding-top: 4rem;
-  padding-bottom: 4rem;
-
-  @include mixins.max(sm) {
-    padding-top: 2rem;
-    padding-bottom: 3rem;
-  }
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }

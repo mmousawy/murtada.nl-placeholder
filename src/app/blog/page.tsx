@@ -8,6 +8,7 @@ import Link from 'next/link';
 
 import Container from '@/components/Global/Container/Container';
 import PrismicImageWithBlur from '@/components/Global/PrismicImageWithBlur/PrismicImageWithBlur';
+import { formatDate } from '@/utils/dateUtils';
 
 export const metadata = {
   title: 'Blog - Murtada al Mousawy',
@@ -20,7 +21,7 @@ const BlogPage = async () => {
 
   const blogPosts = await client.getByType('blog_post', {
     orderings: { field: "document.first_publication_date", direction: "desc" },
-    fetch: ['blog_post.title', 'blog_post.date', 'blog_post.description', 'blog_post.cover_image'],
+    fetch: ['blog_post.title', 'blog_post.date', 'blog_post.description', 'blog_post.cover_image', 'blog_post.color'],
   });
 
   return (
@@ -31,15 +32,26 @@ const BlogPage = async () => {
           <PrismicRichText field={page.data.description} />
         </div>
         <div className={st2.blogPosts}>
-          { blogPosts.results.map((post: any) => (
-            <Link key={post.id} className={st2.blogPost}  href={`/blog/${post.uid}`}>
-              <PrismicImageWithBlur loading="lazy" width={128} field={post.data.cover_image} imgixParams={{ format: 'auto', fit: 'crop', q: '95' }} />
-              <div className={st2.blogPost__content}>
-                <h2 className={st2.postTitle}>{ post.data.title }</h2>
-                <time className={st2.date}>{post.data.date}</time>
-              </div>
-            </Link>
-          )) }
+          { blogPosts.results.map((post: any) => {
+            const postColor = post.data.color || null;
+            
+            return (
+              <Link 
+                key={post.id} 
+                className={st2.blogPost}  
+                href={`/blog/${post.uid}`}
+                style={postColor ? { '--post-color': postColor } as React.CSSProperties : undefined}
+              >
+                <div className={st2.blogPost__image}>
+                  <PrismicImageWithBlur loading="lazy" width={90} height={90} field={post.data.cover_image} imgixParams={{ format: 'auto', fit: 'crop', q: '95', w: '90', h: '90' }} />
+                </div>
+                <div className={st2.blogPost__content}>
+                  <h2 className={st2.postTitle}>{ post.data.title }</h2>
+                  <time className={st2.date}>{formatDate(post.data.date)}</time>
+                </div>
+              </Link>
+            );
+          }) }
         </div>
       </Container>
     </div>

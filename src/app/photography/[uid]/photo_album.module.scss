@@ -1,6 +1,7 @@
 @use '@/styles/mixins';
 
 .title {
+  font-family: var(--font-zilla-slab), serif;
   font-size: 3rem;
   font-weight: 600;
   margin-bottom: 1rem;
@@ -74,12 +75,6 @@
 
   p {
     line-height: 1.4;
-    font-size: 1.125rem;
-    text-align: justify;
-
-    @include mixins.max(lg) {
-      font-size: 1rem;
-      text-align: left;
-    }
+    font-size: 1.25rem;
   }
 }

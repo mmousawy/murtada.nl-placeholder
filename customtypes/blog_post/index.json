@@ -34,6 +34,13 @@
           "placeholder": ""
         }
       },
+      "color": {
+        "type": "Color",
+        "config": {
+          "label": "color",
+          "placeholder": "#f3f3f3"
+        }
+      },
       "slices": {
         "type": "Slices",
         "fieldset": "Slice Zone",

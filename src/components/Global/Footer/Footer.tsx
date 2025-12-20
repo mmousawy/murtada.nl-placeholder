@@ -12,7 +12,7 @@ const Footer: FC = () => {
   return (
     <footer className={st.footer}>
       <Container classNames={`${st.container}`} variant={pathname.includes('/blog/') ? 'slim' : pathname.includes('/photography/') ? 'centered' : undefined}>
-        &copy; {new Date().getFullYear()} Murtada al Mousawy
+        <span>&copy; {new Date().getFullYear()} Murtada al Mousawy. All rights reserved.</span>
       </Container>
     </footer>
   );

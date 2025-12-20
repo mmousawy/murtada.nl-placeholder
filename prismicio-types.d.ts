@@ -4,6 +4,71 @@ import type * as prismic from "@prismicio/client";
 
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
+type PickContentRelationshipFieldData<
+  TRelationship extends
+    | prismic.CustomTypeModelFetchCustomTypeLevel1
+    | prismic.CustomTypeModelFetchCustomTypeLevel2
+    | prismic.CustomTypeModelFetchGroupLevel1
+    | prismic.CustomTypeModelFetchGroupLevel2,
+  TData extends Record<
+    string,
+    | prismic.AnyRegularField
+    | prismic.GroupField
+    | prismic.NestedGroupField
+    | prismic.SliceZone
+  >,
+  TLang extends string,
+> =
+  // Content relationship fields
+  {
+    [TSubRelationship in Extract<
+      TRelationship["fields"][number],
+      prismic.CustomTypeModelFetchContentRelationshipLevel1
+    > as TSubRelationship["id"]]: ContentRelationshipFieldWithData<
+      TSubRelationship["customtypes"],
+      TLang
+    >;
+  } & // Group
+  {
+    [TGroup in Extract<
+      TRelationship["fields"][number],
+      | prismic.CustomTypeModelFetchGroupLevel1
+      | prismic.CustomTypeModelFetchGroupLevel2
+    > as TGroup["id"]]: TData[TGroup["id"]] extends prismic.GroupField<
+      infer TGroupData
+    >
+      ? prismic.GroupField<
+          PickContentRelationshipFieldData<TGroup, TGroupData, TLang>
+        >
+      : never;
+  } & // Other fields
+  {
+    [TFieldKey in Extract<
+      TRelationship["fields"][number],
+      string
+    >]: TFieldKey extends keyof TData ? TData[TFieldKey] : never;
+  };
+
+type ContentRelationshipFieldWithData<
+  TCustomType extends
+    | readonly (prismic.CustomTypeModelFetchCustomTypeLevel1 | string)[]
+    | readonly (prismic.CustomTypeModelFetchCustomTypeLevel2 | string)[],
+  TLang extends string = string,
+> = {
+  [ID in Exclude<
+    TCustomType[number],
+    string
+  >["id"]]: prismic.ContentRelationshipField<
+    ID,
+    TLang,
+    PickContentRelationshipFieldData<
+      Extract<TCustomType[number], { id: ID }>,
+      Extract<prismic.Content.AllDocumentTypes, { type: ID }>["data"],
+      TLang
+    >
+  >;
+}[Exclude<TCustomType[number], string>["id"]];
+
 type AboutDocumentDataSlicesSlice = HeroSlice;
 
 /**
@@ -17,7 +82,7 @@ interface AboutDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: about.title
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
   title: prismic.KeyTextField;
 
@@ -28,7 +93,7 @@ interface AboutDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: about.left_intro
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
    */
   left_intro: prismic.RichTextField;
 
@@ -39,7 +104,7 @@ interface AboutDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: about.left_image
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#image
+   * - **Documentation**: https://prismic.io/docs/fields/image
    */
   left_image: prismic.ImageField<never>;
 
@@ -50,7 +115,7 @@ interface AboutDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: about.right_intro
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
    */
   right_intro: prismic.RichTextField;
 
@@ -61,17 +126,17 @@ interface AboutDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: about.slices[]
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#slices
+   * - **Documentation**: https://prismic.io/docs/slices
    */
-  slices: prismic.SliceZone<AboutDocumentDataSlicesSlice> /**
+  slices: prismic.SliceZone<AboutDocumentDataSlicesSlice>; /**
    * Meta Description field in *About*
    *
    * - **Field Type**: Text
    * - **Placeholder**: A brief summary of the page
    * - **API ID Path**: about.meta_description
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#key-text
-   */;
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
   meta_description: prismic.KeyTextField;
 
   /**
@@ -81,7 +146,7 @@ interface AboutDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: about.meta_image
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#image
+   * - **Documentation**: https://prismic.io/docs/fields/image
    */
   meta_image: prismic.ImageField<never>;
 
@@ -92,7 +157,7 @@ interface AboutDocumentData {
    * - **Placeholder**: A title of the page used for social media and search engines
    * - **API ID Path**: about.meta_title
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
   meta_title: prismic.KeyTextField;
 }
@@ -102,7 +167,7 @@ interface AboutDocumentData {
  *
  * - **API ID**: `about`
  * - **Repeatable**: `false`
- * - **Documentation**: https://prismic.io/docs/custom-types
+ * - **Documentation**: https://prismic.io/docs/content-modeling
  *
  * @typeParam Lang - Language API ID of the document.
  */
@@ -122,7 +187,7 @@ interface BlogDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: blog.title
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
   title: prismic.KeyTextField;
 
@@ -133,7 +198,7 @@ interface BlogDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: blog.description
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
    */
   description: prismic.RichTextField;
 
@@ -144,17 +209,17 @@ interface BlogDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: blog.slices[]
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#slices
+   * - **Documentation**: https://prismic.io/docs/slices
    */
-  slices: prismic.SliceZone<BlogDocumentDataSlicesSlice> /**
+  slices: prismic.SliceZone<BlogDocumentDataSlicesSlice>; /**
    * Meta Description field in *Blog*
    *
    * - **Field Type**: Text
    * - **Placeholder**: A brief summary of the page
    * - **API ID Path**: blog.meta_description
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#key-text
-   */;
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
   meta_description: prismic.KeyTextField;
 
   /**
@@ -164,7 +229,7 @@ interface BlogDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: blog.meta_image
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#image
+   * - **Documentation**: https://prismic.io/docs/fields/image
    */
   meta_image: prismic.ImageField<never>;
 
@@ -175,7 +240,7 @@ interface BlogDocumentData {
    * - **Placeholder**: A title of the page used for social media and search engines
    * - **API ID Path**: blog.meta_title
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
   meta_title: prismic.KeyTextField;
 }
@@ -185,7 +250,7 @@ interface BlogDocumentData {
  *
  * - **API ID**: `blog`
  * - **Repeatable**: `false`
- * - **Documentation**: https://prismic.io/docs/custom-types
+ * - **Documentation**: https://prismic.io/docs/content-modeling
  *
  * @typeParam Lang - Language API ID of the document.
  */
@@ -205,7 +270,7 @@ interface BlogPostDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: blog_post.title
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
   title: prismic.KeyTextField;
 
@@ -216,7 +281,7 @@ interface BlogPostDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: blog_post.cover_image
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#image
+   * - **Documentation**: https://prismic.io/docs/fields/image
    */
   cover_image: prismic.ImageField<never>;
 
@@ -227,9 +292,20 @@ interface BlogPostDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: blog_post.date
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#date
+   * - **Documentation**: https://prismic.io/docs/fields/date
    */
   date: prismic.DateField;
+
+  /**
+   * color field in *Blog post*
+   *
+   * - **Field Type**: Color
+   * - **Placeholder**: #f3f3f3
+   * - **API ID Path**: blog_post.color
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/color
+   */
+  color: prismic.ColorField;
 
   /**
    * Slice Zone field in *Blog post*
@@ -238,17 +314,17 @@ interface BlogPostDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: blog_post.slices[]
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#slices
+   * - **Documentation**: https://prismic.io/docs/slices
    */
-  slices: prismic.SliceZone<BlogPostDocumentDataSlicesSlice> /**
+  slices: prismic.SliceZone<BlogPostDocumentDataSlicesSlice>; /**
    * Meta Description field in *Blog post*
    *
    * - **Field Type**: Text
    * - **Placeholder**: A brief summary of the page
    * - **API ID Path**: blog_post.meta_description
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#key-text
-   */;
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
   meta_description: prismic.KeyTextField;
 
   /**
@@ -258,7 +334,7 @@ interface BlogPostDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: blog_post.meta_image
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#image
+   * - **Documentation**: https://prismic.io/docs/fields/image
    */
   meta_image: prismic.ImageField<never>;
 
@@ -269,7 +345,7 @@ interface BlogPostDocumentData {
    * - **Placeholder**: A title of the page used for social media and search engines
    * - **API ID Path**: blog_post.meta_title
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
   meta_title: prismic.KeyTextField;
 }
@@ -279,7 +355,7 @@ interface BlogPostDocumentData {
  *
  * - **API ID**: `blog_post`
  * - **Repeatable**: `true`
- * - **Documentation**: https://prismic.io/docs/custom-types
+ * - **Documentation**: https://prismic.io/docs/content-modeling
  *
  * @typeParam Lang - Language API ID of the document.
  */
@@ -303,17 +379,17 @@ interface ContactDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: contact.slices[]
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#slices
+   * - **Documentation**: https://prismic.io/docs/slices
    */
-  slices: prismic.SliceZone<ContactDocumentDataSlicesSlice> /**
+  slices: prismic.SliceZone<ContactDocumentDataSlicesSlice>; /**
    * Meta Description field in *Contact*
    *
    * - **Field Type**: Text
    * - **Placeholder**: A brief summary of the page
    * - **API ID Path**: contact.meta_description
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#key-text
-   */;
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
   meta_description: prismic.KeyTextField;
 
   /**
@@ -323,7 +399,7 @@ interface ContactDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: contact.meta_image
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#image
+   * - **Documentation**: https://prismic.io/docs/fields/image
    */
   meta_image: prismic.ImageField<never>;
 
@@ -334,7 +410,7 @@ interface ContactDocumentData {
    * - **Placeholder**: A title of the page used for social media and search engines
    * - **API ID Path**: contact.meta_title
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
   meta_title: prismic.KeyTextField;
 }
@@ -344,7 +420,7 @@ interface ContactDocumentData {
  *
  * - **API ID**: `contact`
  * - **Repeatable**: `false`
- * - **Documentation**: https://prismic.io/docs/custom-types
+ * - **Documentation**: https://prismic.io/docs/content-modeling
  *
  * @typeParam Lang - Language API ID of the document.
  */
@@ -368,17 +444,17 @@ interface GenericPageDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: generic_page.slices[]
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#slices
+   * - **Documentation**: https://prismic.io/docs/slices
    */
-  slices: prismic.SliceZone<GenericPageDocumentDataSlicesSlice> /**
+  slices: prismic.SliceZone<GenericPageDocumentDataSlicesSlice>; /**
    * Meta Description field in *Generic page*
    *
    * - **Field Type**: Text
    * - **Placeholder**: A brief summary of the page
    * - **API ID Path**: generic_page.meta_description
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#key-text
-   */;
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
   meta_description: prismic.KeyTextField;
 
   /**
@@ -388,7 +464,7 @@ interface GenericPageDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: generic_page.meta_image
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#image
+   * - **Documentation**: https://prismic.io/docs/fields/image
    */
   meta_image: prismic.ImageField<never>;
 
@@ -399,7 +475,7 @@ interface GenericPageDocumentData {
    * - **Placeholder**: A title of the page used for social media and search engines
    * - **API ID Path**: generic_page.meta_title
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
   meta_title: prismic.KeyTextField;
 }
@@ -409,7 +485,7 @@ interface GenericPageDocumentData {
  *
  * - **API ID**: `generic_page`
  * - **Repeatable**: `true`
- * - **Documentation**: https://prismic.io/docs/custom-types
+ * - **Documentation**: https://prismic.io/docs/content-modeling
  *
  * @typeParam Lang - Language API ID of the document.
  */
@@ -433,17 +509,17 @@ interface HomeDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: home.slices[]
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#slices
+   * - **Documentation**: https://prismic.io/docs/slices
    */
-  slices: prismic.SliceZone<HomeDocumentDataSlicesSlice> /**
+  slices: prismic.SliceZone<HomeDocumentDataSlicesSlice>; /**
    * Meta Description field in *Home*
    *
    * - **Field Type**: Text
    * - **Placeholder**: A brief summary of the page
    * - **API ID Path**: home.meta_description
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#key-text
-   */;
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
   meta_description: prismic.KeyTextField;
 
   /**
@@ -453,7 +529,7 @@ interface HomeDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: home.meta_image
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#image
+   * - **Documentation**: https://prismic.io/docs/fields/image
    */
   meta_image: prismic.ImageField<never>;
 
@@ -464,7 +540,7 @@ interface HomeDocumentData {
    * - **Placeholder**: A title of the page used for social media and search engines
    * - **API ID Path**: home.meta_title
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
   meta_title: prismic.KeyTextField;
 }
@@ -474,7 +550,7 @@ interface HomeDocumentData {
  *
  * - **API ID**: `home`
  * - **Repeatable**: `false`
- * - **Documentation**: https://prismic.io/docs/custom-types
+ * - **Documentation**: https://prismic.io/docs/content-modeling
  *
  * @typeParam Lang - Language API ID of the document.
  */
@@ -491,7 +567,7 @@ export interface MainNavigationDocumentDataItemsItem {
    * - **Field Type**: Text
    * - **Placeholder**: *None*
    * - **API ID Path**: main_navigation.items[].label
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
   label: prismic.KeyTextField;
 
@@ -501,9 +577,9 @@ export interface MainNavigationDocumentDataItemsItem {
    * - **Field Type**: Link
    * - **Placeholder**: *None*
    * - **API ID Path**: main_navigation.items[].link
-   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   * - **Documentation**: https://prismic.io/docs/fields/link
    */
-  link: prismic.LinkField;
+  link: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
 }
 
 /**
@@ -517,7 +593,7 @@ interface MainNavigationDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: main_navigation.items[]
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#group
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
    */
   items: prismic.GroupField<Simplify<MainNavigationDocumentDataItemsItem>>;
 }
@@ -527,7 +603,7 @@ interface MainNavigationDocumentData {
  *
  * - **API ID**: `main_navigation`
  * - **Repeatable**: `false`
- * - **Documentation**: https://prismic.io/docs/custom-types
+ * - **Documentation**: https://prismic.io/docs/content-modeling
  *
  * @typeParam Lang - Language API ID of the document.
  */
@@ -548,7 +624,7 @@ export interface PhotoAlbumDocumentDataPhotosItem {
    * - **Field Type**: Image
    * - **Placeholder**: *None*
    * - **API ID Path**: photo_album.photos[].image
-   * - **Documentation**: https://prismic.io/docs/field#image
+   * - **Documentation**: https://prismic.io/docs/fields/image
    */
   image: prismic.ImageField<never>;
 
@@ -559,7 +635,7 @@ export interface PhotoAlbumDocumentDataPhotosItem {
    * - **Placeholder**: *None*
    * - **Default Value**: Normal
    * - **API ID Path**: photo_album.photos[].style
-   * - **Documentation**: https://prismic.io/docs/field#select
+   * - **Documentation**: https://prismic.io/docs/fields/select
    */
   style: prismic.SelectField<"Normal" | "Full width", "filled">;
 }
@@ -577,7 +653,7 @@ interface PhotoAlbumDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: photo_album.title
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
   title: prismic.KeyTextField;
 
@@ -588,7 +664,7 @@ interface PhotoAlbumDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: photo_album.year
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
   year: prismic.KeyTextField;
 
@@ -599,7 +675,7 @@ interface PhotoAlbumDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: photo_album.description
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
    */
   description: prismic.RichTextField;
 
@@ -610,7 +686,7 @@ interface PhotoAlbumDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: photo_album.cover_image
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#image
+   * - **Documentation**: https://prismic.io/docs/fields/image
    */
   cover_image: prismic.ImageField<never>;
 
@@ -621,7 +697,7 @@ interface PhotoAlbumDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: photo_album.photos[]
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#group
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
    */
   photos: prismic.GroupField<Simplify<PhotoAlbumDocumentDataPhotosItem>>;
 
@@ -632,17 +708,17 @@ interface PhotoAlbumDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: photo_album.slices[]
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#slices
+   * - **Documentation**: https://prismic.io/docs/slices
    */
-  slices: prismic.SliceZone<PhotoAlbumDocumentDataSlicesSlice> /**
+  slices: prismic.SliceZone<PhotoAlbumDocumentDataSlicesSlice>; /**
    * Meta Title field in *Photo album*
    *
    * - **Field Type**: Text
    * - **Placeholder**: A title of the page used for social media and search engines
    * - **API ID Path**: photo_album.meta_title
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#key-text
-   */;
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
   meta_title: prismic.KeyTextField;
 
   /**
@@ -652,7 +728,7 @@ interface PhotoAlbumDocumentData {
    * - **Placeholder**: A brief summary of the page
    * - **API ID Path**: photo_album.meta_description
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
   meta_description: prismic.KeyTextField;
 
@@ -663,7 +739,7 @@ interface PhotoAlbumDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: photo_album.meta_image
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#image
+   * - **Documentation**: https://prismic.io/docs/fields/image
    */
   meta_image: prismic.ImageField<never>;
 }
@@ -673,7 +749,7 @@ interface PhotoAlbumDocumentData {
  *
  * - **API ID**: `photo_album`
  * - **Repeatable**: `true`
- * - **Documentation**: https://prismic.io/docs/custom-types
+ * - **Documentation**: https://prismic.io/docs/content-modeling
  *
  * @typeParam Lang - Language API ID of the document.
  */
@@ -694,7 +770,7 @@ export interface PhotographyDocumentDataSelectedPhotoAlbumsItem {
    * - **Field Type**: Content Relationship
    * - **Placeholder**: *None*
    * - **API ID Path**: photography.selected_photo_albums[].album
-   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   * - **Documentation**: https://prismic.io/docs/fields/content-relationship
    */
   album: prismic.ContentRelationshipField<"photo_album">;
 }
@@ -712,7 +788,7 @@ interface PhotographyDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: photography.title
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
   title: prismic.KeyTextField;
 
@@ -723,7 +799,7 @@ interface PhotographyDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: photography.selected_photo_albums[]
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#group
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
    */
   selected_photo_albums: prismic.GroupField<
     Simplify<PhotographyDocumentDataSelectedPhotoAlbumsItem>
@@ -736,17 +812,17 @@ interface PhotographyDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: photography.slices[]
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#slices
+   * - **Documentation**: https://prismic.io/docs/slices
    */
-  slices: prismic.SliceZone<PhotographyDocumentDataSlicesSlice> /**
+  slices: prismic.SliceZone<PhotographyDocumentDataSlicesSlice>; /**
    * Meta Title field in *Photography*
    *
    * - **Field Type**: Text
    * - **Placeholder**: A title of the page used for social media and search engines
    * - **API ID Path**: photography.meta_title
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#key-text
-   */;
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
   meta_title: prismic.KeyTextField;
 
   /**
@@ -756,7 +832,7 @@ interface PhotographyDocumentData {
    * - **Placeholder**: A brief summary of the page
    * - **API ID Path**: photography.meta_description
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
   meta_description: prismic.KeyTextField;
 
@@ -767,7 +843,7 @@ interface PhotographyDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: photography.meta_image
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#image
+   * - **Documentation**: https://prismic.io/docs/fields/image
    */
   meta_image: prismic.ImageField<never>;
 }
@@ -777,7 +853,7 @@ interface PhotographyDocumentData {
  *
  * - **API ID**: `photography`
  * - **Repeatable**: `false`
- * - **Documentation**: https://prismic.io/docs/custom-types
+ * - **Documentation**: https://prismic.io/docs/content-modeling
  *
  * @typeParam Lang - Language API ID of the document.
  */
@@ -801,17 +877,17 @@ interface ProjectsDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: projects.slices[]
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#slices
+   * - **Documentation**: https://prismic.io/docs/slices
    */
-  slices: prismic.SliceZone<ProjectsDocumentDataSlicesSlice> /**
+  slices: prismic.SliceZone<ProjectsDocumentDataSlicesSlice>; /**
    * Meta Description field in *Projects*
    *
    * - **Field Type**: Text
    * - **Placeholder**: A brief summary of the page
    * - **API ID Path**: projects.meta_description
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#key-text
-   */;
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
   meta_description: prismic.KeyTextField;
 
   /**
@@ -821,7 +897,7 @@ interface ProjectsDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: projects.meta_image
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#image
+   * - **Documentation**: https://prismic.io/docs/fields/image
    */
   meta_image: prismic.ImageField<never>;
 
@@ -832,7 +908,7 @@ interface ProjectsDocumentData {
    * - **Placeholder**: A title of the page used for social media and search engines
    * - **API ID Path**: projects.meta_title
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
   meta_title: prismic.KeyTextField;
 }
@@ -842,7 +918,7 @@ interface ProjectsDocumentData {
  *
  * - **API ID**: `projects`
  * - **Repeatable**: `false`
- * - **Documentation**: https://prismic.io/docs/custom-types
+ * - **Documentation**: https://prismic.io/docs/content-modeling
  *
  * @typeParam Lang - Language API ID of the document.
  */
@@ -875,7 +951,7 @@ export interface ArticleImageSliceDefaultPrimary {
    * - **Field Type**: Image
    * - **Placeholder**: *None*
    * - **API ID Path**: article_image.default.primary.image
-   * - **Documentation**: https://prismic.io/docs/field#image
+   * - **Documentation**: https://prismic.io/docs/fields/image
    */
   image: prismic.ImageField<never>;
 }
@@ -885,7 +961,7 @@ export interface ArticleImageSliceDefaultPrimary {
  *
  * - **API ID**: `default`
  * - **Description**: Default
- * - **Documentation**: https://prismic.io/docs/slice
+ * - **Documentation**: https://prismic.io/docs/slices
  */
 export type ArticleImageSliceDefault = prismic.SharedSliceVariation<
   "default",
@@ -903,7 +979,7 @@ type ArticleImageSliceVariation = ArticleImageSliceDefault;
  *
  * - **API ID**: `article_image`
  * - **Description**: ArticleImage
- * - **Documentation**: https://prismic.io/docs/slice
+ * - **Documentation**: https://prismic.io/docs/slices
  */
 export type ArticleImageSlice = prismic.SharedSlice<
   "article_image",
@@ -920,7 +996,7 @@ export interface HeroSliceDefaultPrimary {
    * - **Field Type**: Text
    * - **Placeholder**: *None*
    * - **API ID Path**: hero.default.primary.title
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
   title: prismic.KeyTextField;
 
@@ -930,7 +1006,7 @@ export interface HeroSliceDefaultPrimary {
    * - **Field Type**: Rich Text
    * - **Placeholder**: *None*
    * - **API ID Path**: hero.default.primary.intro
-   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
    */
   intro: prismic.RichTextField;
 
@@ -940,7 +1016,7 @@ export interface HeroSliceDefaultPrimary {
    * - **Field Type**: Image
    * - **Placeholder**: *None*
    * - **API ID Path**: hero.default.primary.image
-   * - **Documentation**: https://prismic.io/docs/field#image
+   * - **Documentation**: https://prismic.io/docs/fields/image
    */
   image: prismic.ImageField<never>;
 }
@@ -950,7 +1026,7 @@ export interface HeroSliceDefaultPrimary {
  *
  * - **API ID**: `default`
  * - **Description**: Default
- * - **Documentation**: https://prismic.io/docs/slice
+ * - **Documentation**: https://prismic.io/docs/slices
  */
 export type HeroSliceDefault = prismic.SharedSliceVariation<
   "default",
@@ -968,7 +1044,7 @@ type HeroSliceVariation = HeroSliceDefault;
  *
  * - **API ID**: `hero`
  * - **Description**: Hero
- * - **Documentation**: https://prismic.io/docs/slice
+ * - **Documentation**: https://prismic.io/docs/slices
  */
 export type HeroSlice = prismic.SharedSlice<"hero", HeroSliceVariation>;
 
@@ -982,7 +1058,7 @@ export interface RichTextBlockSliceDefaultPrimary {
    * - **Field Type**: Rich Text
    * - **Placeholder**: *None*
    * - **API ID Path**: rich_text_block.default.primary.text
-   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
    */
   text: prismic.RichTextField;
 }
@@ -992,7 +1068,7 @@ export interface RichTextBlockSliceDefaultPrimary {
  *
  * - **API ID**: `default`
  * - **Description**: Default
- * - **Documentation**: https://prismic.io/docs/slice
+ * - **Documentation**: https://prismic.io/docs/slices
  */
 export type RichTextBlockSliceDefault = prismic.SharedSliceVariation<
   "default",
@@ -1010,7 +1086,7 @@ type RichTextBlockSliceVariation = RichTextBlockSliceDefault;
  *
  * - **API ID**: `rich_text_block`
  * - **Description**: RichTextBlock
- * - **Documentation**: https://prismic.io/docs/slice
+ * - **Documentation**: https://prismic.io/docs/slices
  */
 export type RichTextBlockSlice = prismic.SharedSlice<
   "rich_text_block",
@@ -1023,6 +1099,17 @@ declare module "@prismicio/client" {
       repositoryNameOrEndpoint: string,
       options?: prismic.ClientConfig,
     ): prismic.Client<AllDocumentTypes>;
+  }
+
+  interface CreateWriteClient {
+    (
+      repositoryNameOrEndpoint: string,
+      options: prismic.WriteClientConfig,
+    ): prismic.WriteClient<AllDocumentTypes>;
+  }
+
+  interface CreateMigration {
+    (): prismic.Migration<AllDocumentTypes>;
   }
 
   namespace Content {

@@ -5,6 +5,10 @@
   display: flex;
   list-style: none;
   gap: .75rem;
+  position: relative;
+  min-height: 4rem;
+  padding: 0 1rem;
+  font-size: 1.125rem;
 
   @include mixins.max(sm) {
     display: flex;
@@ -28,8 +32,10 @@
   }
 
   a {
-    font-weight: 700;
+    font-weight: 600;
     padding: .5em;
+    display: inline-block;
+    transition: color .2s;
 
     &:hover,
     &:focus {
@@ -38,14 +44,37 @@
   }
 }
 
+.indicatedLink {
+  color: var(--link);
+} 
+
+.indicator {
+  position: absolute;
+  bottom: 1rem;
+  height: 2px;
+  background-color: var(--link);
+  transition: left 0.2s, width 0.2s, opacity 0.2s, transform 0.2s;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transform: translateY(.25rem);
+
+  @include mixins.max(sm) {
+    display: none;
+  }
+
+  &.indicatorVisible {
+    opacity: 1;
+    transform: translateY(0) scaleY(1);
+  }
+}
+
 .activeLink {
   color: var(--link);
-  text-decoration: underline;
-  text-underline-offset: .5em;
-  text-decoration-thickness: 2px;
 
   @include mixins.max(sm) {
     text-underline-offset: .375em;
+    text-decoration: underline;
   }
 }
 
@@ -90,7 +119,6 @@
   }
 
   .contactButtonMobile {
-    transition-delay: .5s;
     opacity: 1;
   }
 }
@@ -163,18 +191,28 @@
   background-color: #fff;
   position: relative;
   z-index: 2;
-  box-shadow: 0 0 0 2px var(--foreground);
+  box-shadow: 0 0 0 3px var(--foreground);
   padding: .3em .6em .4em;
-  font-weight: 700;
-  border-radius: 1px;
-  transition: box-shadow .2s, color .2s;
+  font-weight: 600;
+  border-radius: 3px;
+  transition: transform .2s, box-shadow .2s, color .2s;
+  font-size: 1.125rem;
 
   &:hover,
   &:focus {
-    box-shadow: 0 0 0 2px var(--link);
+    transform: translate(-4px, -4px);
+    box-shadow: 0 0 0 3px var(--link), 2px 2px 0 3px var(--link), 4px 4px 0 3px var(--link);
+    opacity: .9;
     color: var(--link);
   }
 
+  &:active {
+    transform: translate(0);
+    box-shadow: 0 0 0 3px var(--link);
+  }
+}
+
+.contactButton {
   @include mixins.max(sm) {
     display: none;
   }
@@ -186,9 +224,13 @@
   font-size: 1.375rem;
   text-align: center;
   opacity: 0;
-  transition: opacity .3s ease-in-out;
+  transition: opacity .3s, transform .2s, box-shadow .2s, color .2s;
 
   @include mixins.min(sm) {
     display: none;
+  }
+
+  &.contactButtonMobileDelayed {
+    transition-delay: .5s;
   }
 }

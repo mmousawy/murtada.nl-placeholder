@@ -1,7 +1,6 @@
 @use '@/styles/mixins';
 
 .grid {
-  letter-spacing: -0.04em;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 3rem;
@@ -12,15 +11,31 @@
     gap: 2rem;
   }
 
-  img {
+  .articleImg {
     width: 100%;
     height: auto;
     margin-top: 2rem;
+    border-radius: 3px;
+  }
+
+  .handWaveEmoji {
+    position: relative;
+    display: inline-block;
+    width: 1.18em;
+    height: 1.18em;
+    margin-left: .5ch;
+    vertical-align: top;
+
+    img {
+      width: auto;
+      height: 100%;
+      object-fit: contain;
+    }
   }
 
   p {
     line-height: 1.4;
-    font-size: 1.125rem;
+    font-size: 1.25rem;
 
     + p {
       margin-top: 1em;
@@ -58,6 +73,7 @@
 }
 
 .title {
+  font-family: var(--font-zilla-slab), serif;
   font-size: 3rem;
   font-weight: 600;
   margin-bottom: 1rem;

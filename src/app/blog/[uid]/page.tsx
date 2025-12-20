@@ -6,6 +6,7 @@ const client = createClient();
 import { components } from "@/slices";
 
 import Container from '@/components/Global/Container/Container';
+import { formatDate } from '@/utils/dateUtils';
 
 import st from '@/styles/page.module.scss';
 import st2 from './blog_post.module.scss';
@@ -34,19 +35,12 @@ const BlogPostPage = async (props: { params: tParams }) => {
   const { uid } = await await props.params;
   const page: any = await client.getByUID('blog_post', uid);
 
-  const niceDate = new Date(page.data.date);
-  const dateOptions:  Intl.DateTimeFormatOptions  = {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  };
-
   return (
     <>
       <div className={st.pageContainer}>
         <Container variant='article' classNames={st2.article}>
           <h1 className={st2.title}>{page.data.title}</h1>
-          <time className={st2.date}>{niceDate.toLocaleDateString('en-US', dateOptions)}</time>
+          <time className={st2.date}>{formatDate(page.data.date)}</time>
           <div className={st2.description}>
             <PrismicRichText field={page.data.content} />
           </div>

@@ -6,11 +6,17 @@ import { PrismicPreview } from '@prismicio/next';
 import { repositoryName } from '@/prismicio';
 import { createClient } from "@/prismicio";
 
-import { Inter } from 'next/font/google';
-const inter = Inter({ subsets: ['latin'] });
+import { Outfit, Zilla_Slab } from 'next/font/google';
+const outfit = Outfit({ subsets: ['latin'] });
+const zillaSlab = Zilla_Slab({ 
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-zilla-slab',
+});
 
 import Header from '@/components/Global/Header/Header';
-import Footer from '@/components/Global/Footer/Footer';
+import ConditionalFooter from '@/components/Global/Footer/ConditionalFooter';
+import PageLoader from '@/components/Global/PageLoader/PageLoader';
 
 import '@/styles/globals.scss';
 
@@ -31,10 +37,11 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${outfit.className} ${zillaSlab.variable}`}>
+        <PageLoader />
         <Header menuData={ menuData.data } />
         {children}
-        <Footer />
+        <ConditionalFooter />
         {process.env.NODE_ENV === "production" ? null : (<PrismicPreview repositoryName={repositoryName} />)}
         <Analytics />
       </body>

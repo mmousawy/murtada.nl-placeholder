@@ -24,8 +24,8 @@ const PhotographyPage = async () => {
       <Container classNames={st2.grid}>
         <h1 className={st2.title}>{page.data.title}</h1>
         <div className={st2.photoAlbums}>
-          { photoAlbums.map((photoAlbum: any) => (
-            <PhotoAlbum photoAlbum={photoAlbum} key={photoAlbum.id} />
+          { photoAlbums.map((photoAlbum: any, index: number) => (
+            <PhotoAlbum photoAlbum={photoAlbum} key={photoAlbum.album?.id || `photo-album-${index}`} />
           )) }
         </div>
       </Container>
