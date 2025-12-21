@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect, useMemo, useCallback } from 'react';
 import { usePathname } from 'next/navigation';
 import ActiveLink from '@/components/Global/ActiveLink';
+import ShadowWrapper from '@/components/Global/ShadowWrapper/ShadowWrapper';
 
 import st from './Navigation.module.scss';
 
@@ -83,9 +84,13 @@ const Navigation: React.FC<NavigationProps> = ({ menuData, menuOpen, setMenuOpen
   useEffect(() => {
     const updateIndicator = () => {
       if (targetIndex === null) {
-        // Hide but keep in DOM
+        // Hide and reset position
         setIsVisible(false);
         prevTargetRef.current = null;
+        // Reset position after fade-out transition completes
+        setTimeout(() => {
+          setIndicatorPos(null);
+        }, 200);
         return;
       }
       
@@ -93,6 +98,21 @@ const Navigation: React.FC<NavigationProps> = ({ menuData, menuOpen, setMenuOpen
       if (!pos) return;
       
       const prevTarget = prevTargetRef.current;
+      
+      // If indicator was hidden, reset position first before showing
+      if (!isVisible && indicatorPos) {
+        setIndicatorPos(null);
+        // Wait for position reset, then set new position and show
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            setIndicatorPos(pos);
+            prevTargetRef.current = targetIndex;
+            setIsVisible(true);
+          });
+        });
+        return;
+      }
+      
       setIndicatorPos(pos);
       prevTargetRef.current = targetIndex;
       
@@ -116,7 +136,7 @@ const Navigation: React.FC<NavigationProps> = ({ menuData, menuOpen, setMenuOpen
     };
     
     requestAnimationFrame(updateIndicator);
-  }, [targetIndex, getIndicatorPosition, activeIndex]);
+  }, [targetIndex, getIndicatorPosition, activeIndex, isVisible, indicatorPos]);
   
   // Recalculate position on resize
   useEffect(() => {
@@ -292,9 +312,17 @@ const Navigation: React.FC<NavigationProps> = ({ menuData, menuOpen, setMenuOpen
             );
           })}
         </ul>
-        <a href="mailto:hello@murtada.nl" className={`${st.contactButtonMobile} ${menuOpen && !isInitialOpen ? st.contactButtonMobileDelayed : ''}`} ref={contactButtonRef}>Contact me</a>
+        <a href="mailto:hello@murtada.nl" className={`${st.contactButtonMobile} ${menuOpen && !isInitialOpen ? st.contactButtonMobileDelayed : ''}`} ref={contactButtonRef}>
+          <ShadowWrapper noBorder>
+            <span className={st.contactButtonContent}>Contact me</span>
+          </ShadowWrapper>
+        </a>
       </nav>
-      <a href="mailto:hello@murtada.nl" className={st.contactButton}>Contact me</a>
+      <a href="mailto:hello@murtada.nl" className={st.contactButton}>
+        <ShadowWrapper noBorder>
+          <span className={st.contactButtonContent}>Contact me</span>
+        </ShadowWrapper>
+      </a>
     </>
   );
 };

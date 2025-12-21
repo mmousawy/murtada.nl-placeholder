@@ -8,6 +8,7 @@ import Link from 'next/link';
 
 import Container from '@/components/Global/Container/Container';
 import PrismicImageWithBlur from '@/components/Global/PrismicImageWithBlur/PrismicImageWithBlur';
+import ShadowWrapper from '@/components/Global/ShadowWrapper/ShadowWrapper';
 import { formatDate } from '@/utils/dateUtils';
 
 export const metadata = {
@@ -40,15 +41,18 @@ const BlogPage = async () => {
                 key={post.id} 
                 className={st2.blogPost}  
                 href={`/blog/${post.uid}`}
-                style={postColor ? { '--post-color': postColor } as React.CSSProperties : undefined}
               >
-                <div className={st2.blogPost__image}>
-                  <PrismicImageWithBlur loading="lazy" width={90} height={90} field={post.data.cover_image} imgixParams={{ format: 'auto', fit: 'crop', q: '95', w: '90', h: '90' }} />
-                </div>
-                <div className={st2.blogPost__content}>
-                  <h2 className={st2.postTitle}>{ post.data.title }</h2>
-                  <time className={st2.date}>{formatDate(post.data.date)}</time>
-                </div>
+                <ShadowWrapper className={st2.blogPostWrapper} shadowColor={postColor || undefined}>
+                  <div className={st2.blogPost__inner}>
+                    <div className={st2.blogPost__image}>
+                      <PrismicImageWithBlur loading="lazy" width={90} height={90} field={post.data.cover_image} imgixParams={{ format: 'auto', fit: 'crop', q: '95', w: '90', h: '90' }} />
+                    </div>
+                    <div className={st2.blogPost__content}>
+                      <h2 className={st2.postTitle}>{ post.data.title }</h2>
+                      <time className={st2.date}>{formatDate(post.data.date)}</time>
+                    </div>
+                  </div>
+                </ShadowWrapper>
               </Link>
             );
           }) }

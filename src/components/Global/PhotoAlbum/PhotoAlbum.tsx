@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import st from './PhotoAlbum.module.scss';
 import PrismicImageWithBlur from '@/components/Global/PrismicImageWithBlur/PrismicImageWithBlur';
+import ShadowWrapper from '@/components/Global/ShadowWrapper/ShadowWrapper';
 
 import { createClient } from '@/prismicio';
 
@@ -15,7 +16,17 @@ const PhotoAlbum = async ({ photoAlbum }: { photoAlbum: any }) => {
 
   return (
     <Link className={st.album} href={ `/photography/${album.uid}` }>
-      <PrismicImageWithBlur loading="lazy" className={st.album__cover} width={384} field={album.data.cover_image} imgixParams={{ format: 'auto', fit: 'crop', q: '95' }} />
+      <ShadowWrapper className={st.albumWrapper}>
+        <span className={st.album__cover_wrapper}>
+          <PrismicImageWithBlur
+            loading="lazy"
+            className={st.album__cover}
+            width={384}
+            field={album.data.cover_image}
+            imgixParams={{ format: 'auto', fit: 'crop', q: '95' }}
+          />
+        </span>
+      </ShadowWrapper>
       <span className={st.title}>{ album.data.title } &mdash; { album.data.year }</span>
     </Link>
   );

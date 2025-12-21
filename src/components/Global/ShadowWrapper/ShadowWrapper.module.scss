@@ -1,0 +1,107 @@
+.wrapper {
+  position: relative;
+  display: inline-block;
+
+  .content {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 3px;
+    background-color: #fff;
+    box-shadow: 0 0 0 3px var(--foreground);
+    transition: transform 0.2s, box-shadow 0.2s;
+
+    &.border {
+      border: 2px solid #fff;
+    }
+
+    > * {
+      border-radius: 3px;
+      overflow: hidden;
+    }
+  }
+
+  .shadow {
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    z-index: -1;
+    pointer-events: none;
+    border-radius: 6px;
+    background-color: var(--foreground);
+    transition: background-color 0.2s;
+    // Explicitly set opacity to 1 to fix browser rendering issue where shadow disappears on :active
+    // This forces a repaint/reflow and ensures proper stacking context composition
+    opacity: 1;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 6px;
+      background-color: var(--foreground);
+      transition: transform 0.2s, background-color 0.2s;
+      opacity: 1;
+    }
+  }
+
+  :global(a:hover) &,
+  :global(button:hover) &,
+  :global(a:focus) &,
+  :global(button:focus) & {
+    .content {
+      transform: translate(-4px, -4px);
+      box-shadow: 0 0 0 3px var(--shadow-color, var(--link));
+    }
+
+    .shadow {
+      background-color: var(--shadow-color, var(--link));
+      
+      &::before {
+        transform: translate(-2px, -2px);
+        background-color: var(--shadow-color, var(--link));
+      }
+    }
+  }
+
+  :global(a:active) &,
+  :global(button:active) & {
+    .content {
+      transform: translate(0);
+    }
+
+    .shadow {
+      background-color: var(--shadow-color, var(--link));
+      opacity: 1;
+      
+      &::before {
+        transform: translate(0);
+        background-color: var(--shadow-color, var(--link));
+        opacity: 1;
+      }
+    }
+  }
+
+  // Ensure shadow stays visible when both hover and active are true
+  // This has higher specificity than :active alone, ensuring styles apply correctly
+  :global(a:hover:active) &,
+  :global(button:hover:active) &,
+  :global(a:focus:active) &,
+  :global(button:focus:active) & {
+    .shadow {
+      background-color: var(--shadow-color, var(--link));
+      opacity: 1;
+      
+      &::before {
+        background-color: var(--shadow-color, var(--link));
+        opacity: 1;
+      }
+    }
+  }
+}

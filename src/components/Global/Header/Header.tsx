@@ -1,10 +1,10 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 
 import Navigation from '@/components/Navigation/Navigation';
+import Logo from '@/components/Global/Logo/Logo';
 
 import st from './Header.module.scss';
 import Link from 'next/link';
@@ -57,9 +57,7 @@ const Header: React.FC<HeaderProps> = ({ menuData }: HeaderProps) => {
     <header className={headerClassName}>
       <Container classNames={st.container} variant={'no-vertical-padding'}>
         <div className={st.logo}>
-          <Link href="/" aria-label="Home">
-            <Image src="/logo.svg" alt="Murtada.nl logo" width={48} height={48} />
-          </Link>
+          <Logo />
         </div>
         <Navigation menuData={ menuData } menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
       </Container>

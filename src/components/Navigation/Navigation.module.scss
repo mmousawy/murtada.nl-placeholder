@@ -4,10 +4,7 @@
   align-items: center;
   display: flex;
   list-style: none;
-  gap: .75rem;
   position: relative;
-  min-height: 4rem;
-  padding: 0 1rem;
   font-size: 1.125rem;
 
   @include mixins.max(sm) {
@@ -36,6 +33,11 @@
     padding: .5em;
     display: inline-block;
     transition: color .2s;
+    outline-offset: -4px;
+
+    @include mixins.min(sm) {
+      padding: .875rem;
+    }
 
     &:hover,
     &:focus {
@@ -50,7 +52,7 @@
 
 .indicator {
   position: absolute;
-  bottom: 1rem;
+  bottom: .5rem;
   height: 2px;
   background-color: var(--link);
   transition: left 0.2s, width 0.2s, opacity 0.2s, transform 0.2s;
@@ -188,28 +190,23 @@
 
 .contactButton,
 .contactButtonMobile {
-  background-color: #fff;
   position: relative;
   z-index: 2;
-  box-shadow: 0 0 0 3px var(--foreground);
-  padding: .3em .6em .4em;
+  display: inline-block;
   font-weight: 600;
-  border-radius: 3px;
-  transition: transform .2s, box-shadow .2s, color .2s;
+  transition: opacity .2s, color .2s;
   font-size: 1.125rem;
 
   &:hover,
   &:focus {
-    transform: translate(-4px, -4px);
-    box-shadow: 0 0 0 3px var(--link), 2px 2px 0 3px var(--link), 4px 4px 0 3px var(--link);
-    opacity: .9;
+    opacity: .8;
     color: var(--link);
   }
+}
 
-  &:active {
-    transform: translate(0);
-    box-shadow: 0 0 0 3px var(--link);
-  }
+.contactButtonContent {
+  display: block;
+  padding: .3em .6em .4em;
 }
 
 .contactButton {
@@ -221,10 +218,10 @@
 .contactButtonMobile {
   display: inline-block;
   margin-top: auto;
-  font-size: 1.375rem;
   text-align: center;
   opacity: 0;
-  transition: opacity .3s, transform .2s, box-shadow .2s, color .2s;
+  transition: opacity .3s;
+  font-size: 1.375rem;
 
   @include mixins.min(sm) {
     display: none;
