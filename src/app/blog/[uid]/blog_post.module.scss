@@ -11,7 +11,8 @@
   }
 
   @include mixins.max(sm) {
-    font-size: 2.5rem;
+    font-size: 2rem;
+    margin-bottom: .5rem;
   }
 }
 
@@ -19,6 +20,10 @@
   section {
     + section {
       margin-top: 3rem;
+
+      @include mixins.max(sm) {
+        margin-top: 1.5rem;
+      }
     }
   }
 
@@ -26,26 +31,31 @@
     color: var(--link);
     text-underline-offset: .2em;
 
-    &:not([href^="https://murtada.nl"])::after {
-      content: "";
-      position: relative;
-      display: inline-block;
-      top: -2px;
-      width: 12px;
-      height: 12px;
-      margin-left: 4px;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Cpath fill='%233835B9' d='M6 1h5v5L8.9 3.9 4.7 8 4 7.3l4.2-4.2zM2 3h2v1H2v6h6V8h1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1'/%3E%3C/svg%3E");
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: contain;
-      display: inline-block;
-      opacity: .8;
+    &:not([href^="https://murtada.nl"]):not([href^="http://localhost:3000"]) {
+      &::after {
+        content: "";
+        position: relative;
+        display: inline-block;
+        top: -2px;
+        width: 12px;
+        height: 12px;
+        margin-left: 4px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Cpath fill='%233835B9' d='M6 1h5v5L8.9 3.9 4.7 8 4 7.3l4.2-4.2zM2 3h2v1H2v6h6V8h1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1'/%3E%3C/svg%3E");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        display: inline-block;
+      }
     }
 
     &:hover,
     &:focus {
       text-decoration: underline 1px;
       color: var(--primary);
+
+      &::after {
+        opacity: .8;
+      }
     }
   }
 
@@ -54,6 +64,11 @@
     font-size: 1.25rem;
     margin-bottom: 3rem;
     display: block;
+
+    @include mixins.max(sm) {
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+    }
   }
 
   .block-img {
