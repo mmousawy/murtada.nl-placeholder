@@ -164,12 +164,13 @@
   position: relative;
   z-index: 2;
   padding-top: 5rem + 3rem;
-  padding-bottom: 0;
+  padding-bottom: 2rem;
   max-width: var(--max-width);
   margin: 0 auto;
 
   @include mixins.max(lg) {
     padding-top: 4.5rem + 2rem;
+    padding-bottom: 1rem;
   }
 }
 

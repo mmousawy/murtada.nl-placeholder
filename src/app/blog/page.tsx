@@ -45,7 +45,7 @@ const BlogPage = async () => {
                 <ShadowWrapper className={st2.blogPostWrapper} shadowColor={postColor || undefined}>
                   <div className={st2.blogPost__inner}>
                     <div className={st2.blogPost__image}>
-                      <PrismicImageWithBlur loading="lazy" width={90} height={90} field={post.data.cover_image} imgixParams={{ format: 'auto', fit: 'crop', q: '95', w: '90', h: '90' }} />
+                      <PrismicImageWithBlur loading="lazy" width={256} height={256} field={post.data.cover_image} imgixParams={{ format: 'auto', fit: 'crop', q: '95', w: '90', h: '90' }} />
                     </div>
                     <div className={st2.blogPost__content}>
                       <h2 className={st2.postTitle}>{ post.data.title }</h2>
