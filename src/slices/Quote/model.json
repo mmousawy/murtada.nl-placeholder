@@ -1,0 +1,43 @@
+{
+  "id": "quote",
+  "type": "SharedSlice",
+  "name": "Quote",
+  "description": "A styled quote block with attribution",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "quote": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Quote",
+            "placeholder": "Enter the quote text...",
+            "allowTargetBlank": false,
+            "multi": "paragraph,strong,em"
+          }
+        },
+        "author": {
+          "type": "Text",
+          "config": {
+            "label": "Author",
+            "placeholder": "Who said this?"
+          }
+        },
+        "source": {
+          "type": "Text",
+          "config": {
+            "label": "Source",
+            "placeholder": "Book, article, speech, etc. (optional)"
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}
+

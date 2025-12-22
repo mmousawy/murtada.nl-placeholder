@@ -1,0 +1,85 @@
+@use '@/styles/mixins';
+
+.quote {
+  position: relative;
+  margin: 2.5rem 0;
+  padding: 3rem 2.5rem 1rem;
+
+  &::before {
+    // 4px width, 100% height, var(--primary) color
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    border-radius: 1rem;
+    background-color: var(--primary);
+  }
+
+  @include mixins.max(sm) {
+    padding: 2.5rem 1.25rem .75rem;
+    margin: 1.5rem 0;
+  }
+}
+
+.quoteIcon {
+  position: absolute;
+  top: 1rem;
+  left: 2.5rem;
+  font-size: 3rem;
+  line-height: 1;
+  color: var(--primary);
+  opacity: .5;
+  font-weight: 600;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  pointer-events: none;
+  user-select: none;
+
+  @include mixins.max(sm) {
+    font-size: 2.5rem;
+    top: .75rem;
+    left: 1.25rem;
+  }
+}
+
+.quoteText {
+  position: relative;
+  line-height: 1.5;
+  color: var(--foreground);
+
+  p {
+    margin: 0;
+    font-size: 1.625rem;
+    font-family: var(--font-zilla-slab), serif;
+
+    @include mixins.max(sm) {
+      font-size: 1.25rem;
+    }
+  }
+}
+
+.attribution {
+  margin-top: 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.author {
+  font-weight: 600;
+  color: var(--foreground);
+
+  &::before {
+    content: '— ';
+  }
+}
+
+.source {
+  color: var(--foreground);
+  opacity: 0.8;
+  font-style: italic;
+}
+

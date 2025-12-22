@@ -1,0 +1,32 @@
+[
+  {
+    "__TYPE__": "SharedSliceContent",
+    "variation": "default",
+    "primary": {
+      "quote": {
+        "__TYPE__": "StructuredTextContent",
+        "value": [
+          {
+            "type": "paragraph",
+            "content": {
+              "text": "The only way to do great work is to love what you do.",
+              "spans": []
+            }
+          }
+        ]
+      },
+      "author": {
+        "__TYPE__": "FieldContent",
+        "type": "Text",
+        "value": "Steve Jobs"
+      },
+      "source": {
+        "__TYPE__": "FieldContent",
+        "type": "Text",
+        "value": "Stanford Commencement Speech, 2005"
+      }
+    },
+    "items": []
+  }
+]
+
