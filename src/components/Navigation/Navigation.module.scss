@@ -13,18 +13,28 @@
     gap: 1.5rem;
 
     li {
-      @for $i from 1 through 5 {
-        &:nth-child(#{$i}) {
-          transition: all .3s ease-in-out;
-          transition-delay: .4s;
-          transform: translateY(-1rem);
-          opacity: 0;
-        }
-      }
+      transition: all .15s ease-in-out;
+      transform: translateY(-1rem);
+      opacity: 0;
     }
 
     a {
       font-size: 1.375rem;
+      position: relative;
+
+      // Custom underline indicator for mobile
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0.25em;
+        left: 0.5em;
+        right: 0.5em;
+        height: 2px;
+        background-color: var(--link);
+        transform: scaleX(0);
+        transform-origin: center;
+        transition: transform 0.3s ease-in-out;
+      }
     }
   }
 
@@ -42,6 +52,17 @@
     &:hover,
     &:focus {
       color: var(--link);
+    }
+
+    &.activatingLink,
+    &.activeLink {
+      color: var(--link);
+    
+      @include mixins.max(sm) {
+        &::after {
+          transform: scaleX(1);
+        }
+      }
     }
   }
 }
@@ -71,15 +92,6 @@
   }
 }
 
-.activeLink {
-  color: var(--link);
-
-  @include mixins.max(sm) {
-    text-underline-offset: .375em;
-    text-decoration: underline;
-  }
-}
-
 .navigation {
   position: absolute;
   left: 50%;
@@ -98,6 +110,7 @@
     transition: all .3s ease-in-out;
     opacity: 0;
     transform: translateY(-2rem);
+    overflow: hidden;
   }
 }
 
@@ -111,6 +124,7 @@
     .navList li {
       transform: translate(0);
       opacity: 1;
+      transition: all .3s ease-in-out;
 
       @for $i from 1 through 5 {
         &:nth-child(#{$i}) {
@@ -220,14 +234,15 @@
   margin-top: auto;
   text-align: center;
   opacity: 0;
-  transition: opacity .3s;
+  transition: opacity .15s;
   font-size: 1.375rem;
 
   @include mixins.min(sm) {
     display: none;
   }
+}
 
-  &.contactButtonMobileDelayed {
-    transition-delay: .5s;
-  }
+.navigation--open .contactButtonMobile {
+  transition: opacity .3s;
+  transition-delay: .5s;
 }

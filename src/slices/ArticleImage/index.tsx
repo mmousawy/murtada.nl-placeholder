@@ -17,7 +17,7 @@ const ArticleImage = ({ slice }: ArticleImageProps): JSX.Element => {
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
-      <PrismicImageWithBlur priority field={ slice.primary.image } width={ 672 } />
+      <PrismicImageWithBlur priority field={slice.primary.image} width={672} imgixParams={{format: 'auto', q: '95', fit: 'crop', w: '672'}} />
     </section>
   );
 };

@@ -5,6 +5,9 @@ import AvailabilityStatus from '@/components/Home/AvailabilityStatus/Availabilit
 import st from '@/styles/page.module.scss';
 import Socials from '@/components/Socials/Socials';
 
+import portraitPhoto from '@/../public/murtada-al-mousawy-photo-bg.png';
+import bgImage from '@/../public/bg3.webp';
+
 export default function Home() {
   return (
     <>
@@ -12,10 +15,11 @@ export default function Home() {
         <div className={st.center}>
           <Image
             className={st.photo}
-            src="/murtada-al-mousawy-photo.png"
+            src={portraitPhoto}
             alt="Portrait of Murtada al Mousawy"
             width={192}
             height={192}
+            placeholder="blur"
             priority
           />
           <div className={st.aside}>
@@ -28,10 +32,9 @@ export default function Home() {
         <div className={st.bg}>
           <Image
             className={st.bgImage}
-            src="/bg3.webp"
+            src={bgImage}
             alt="Background image"
-            width={1920}
-            height={1080}
+            placeholder="blur"
           />
         </div>
       </main>

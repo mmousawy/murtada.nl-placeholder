@@ -1,0 +1,18 @@
+.pageTransition {
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.fadeOut {
+  opacity: 0;
+}
+
+.fadeIn {
+  opacity: 1;
+}
+
+.hidden {
+  visibility: hidden;
+  pointer-events: none;
+}
+

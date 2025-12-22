@@ -10,6 +10,8 @@ import Container from '@/components/Global/Container/Container';
 import PrismicImageWithBlur from '@/components/Global/PrismicImageWithBlur/PrismicImageWithBlur';
 import Socials from '@/components/Socials/Socials';
 
+import handWaveEmojiImage from '@/../public/hand-wave-emoji.png';
+
 export const metadata = {
   title: 'About - Murtada al Mousawy',
 };
@@ -25,7 +27,7 @@ const AboutPage = async () => {
         <h1 className={st2.title}>
           {page.data.title}
           <span className={st2.handWaveEmoji}>
-            <Image src="/hand-wave-emoji.png" alt="Hand wave emoji" fill priority />
+            <Image src={handWaveEmojiImage} alt="Hand wave emoji" fill priority />
           </span>
         </h1>
         <div className={st2.leftIntro}>

@@ -1,0 +1,13 @@
+.image {
+  opacity: 0;
+  transition: opacity var(--fade-duration, 300ms) ease-out;
+
+  &.loaded {
+    opacity: 1;
+  }
+
+  &.noAnimation {
+    transition: none;
+  }
+}
+

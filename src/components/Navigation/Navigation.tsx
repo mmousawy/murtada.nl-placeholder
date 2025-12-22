@@ -20,6 +20,7 @@ const Navigation: React.FC<NavigationProps> = ({ menuData, menuOpen, setMenuOpen
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [stickyIndex, setStickyIndex] = useState<number | null>(null); // Remembers last hovered (cleared on nav leave)
   const [navigatingIndex, setNavigatingIndex] = useState<number | null>(null); // Clicked link during navigation
+  const [pendingTargetIndex, setPendingTargetIndex] = useState<number | null>(null); // Target index from page transition (for non-nav links like logo)
   const [isInitialOpen, setIsInitialOpen] = useState(false); // Track initial open for animation delay
   
   // Indicator visual state
@@ -45,7 +46,30 @@ const Navigation: React.FC<NavigationProps> = ({ menuData, menuOpen, setMenuOpen
   // Clear navigation state when route changes
   useEffect(() => {
     setNavigatingIndex(null);
+    setPendingTargetIndex(null);
   }, [pathname]);
+
+  // Listen for page-transition-start to update indicator before route changes
+  useEffect(() => {
+    const handleTransitionStart = (e: Event) => {
+      const customEvent = e as CustomEvent<{ targetPath: string }>;
+      const targetPath = customEvent.detail?.targetPath;
+      
+      if (targetPath) {
+        // Find which nav item matches the target path
+        const targetIdx = menuData.items.findIndex((item: any) => 
+          targetPath.startsWith(`/${item.link.slug}`)
+        );
+        // Set to -1 if no match (e.g., going to homepage), otherwise the matching index
+        setPendingTargetIndex(targetIdx);
+      }
+    };
+
+    window.addEventListener('page-transition-start', handleTransitionStart);
+    return () => {
+      window.removeEventListener('page-transition-start', handleTransitionStart);
+    };
+  }, [menuData.items]);
 
   // Track initial open for delay animation
   useEffect(() => {
@@ -54,14 +78,19 @@ const Navigation: React.FC<NavigationProps> = ({ menuData, menuOpen, setMenuOpen
     }
   }, [menuOpen, isInitialOpen]);
   
-  // Compute target index with priority: navigating > hovered > sticky > active
+  // Compute target index with priority: pendingTarget/navigating > hovered > sticky > active
   const targetIndex = useMemo(() => {
+    // If navigating to a specific nav item (clicked a nav link)
     if (navigatingIndex !== null) return navigatingIndex;
+    // If navigating via non-nav link (e.g., logo) - pendingTargetIndex can be -1 (no match) or a valid index
+    if (pendingTargetIndex !== null) {
+      return pendingTargetIndex >= 0 ? pendingTargetIndex : null; // -1 means no nav item matches, hide indicator
+    }
     if (hoveredIndex !== null) return hoveredIndex;
     if (stickyIndex !== null) return stickyIndex;
     if (activeIndex >= 0) return activeIndex;
     return null;
-  }, [navigatingIndex, hoveredIndex, stickyIndex, activeIndex]);
+  }, [navigatingIndex, pendingTargetIndex, hoveredIndex, stickyIndex, activeIndex]);
   
   // Calculate indicator position for a given link index
   const getIndicatorPosition = useCallback((index: number) => {
@@ -265,7 +294,9 @@ const Navigation: React.FC<NavigationProps> = ({ menuData, menuOpen, setMenuOpen
           />
           {menuData.items.map((menuItem: any, index: number) => {
             const hasIndicator = targetIndex === index;
-            const disableActive = navigatingIndex !== null && navigatingIndex !== index;
+            // Disable active state if navigating to a different nav item, or if navigating away entirely (e.g., to homepage)
+            const disableActive = (navigatingIndex !== null && navigatingIndex !== index) || 
+                                  (pendingTargetIndex !== null && pendingTargetIndex !== index);
             
             return (
               <li 
@@ -291,7 +322,7 @@ const Navigation: React.FC<NavigationProps> = ({ menuData, menuOpen, setMenuOpen
                 <ActiveLink
                   href={`/${menuItem.link.slug}`}
                   activeClassName={st.activeLink}
-                  className={hasIndicator ? st.indicatedLink : ''}
+                  className={`${hasIndicator ? st.indicatedLink : ''} ${navigatingIndex === index ? st.activatingLink : ''}`}
                   disableActive={disableActive}
                   ref={(el: HTMLAnchorElement | null) => {
                     linkRefs.current[index] = el;

@@ -17,6 +17,7 @@ const zillaSlab = Zilla_Slab({
 import Header from '@/components/Global/Header/Header';
 import ConditionalFooter from '@/components/Global/Footer/ConditionalFooter';
 import PageLoader from '@/components/Global/PageLoader/PageLoader';
+import PageTransition from '@/components/Global/PageTransition/PageTransition';
 
 import '@/styles/globals.scss';
 
@@ -40,7 +41,7 @@ export default async function RootLayout({
       <body className={`${outfit.className} ${zillaSlab.variable}`}>
         <PageLoader />
         <Header menuData={ menuData.data } />
-        {children}
+        <PageTransition>{children}</PageTransition>
         <ConditionalFooter />
         {process.env.NODE_ENV === "production" ? null : (<PrismicPreview repositoryName={repositoryName} />)}
         <Analytics />

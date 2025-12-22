@@ -17,10 +17,32 @@ type HeaderProps = {
 const Header: React.FC<HeaderProps> = ({ menuData }: HeaderProps) => {
   const pathname = usePathname();
 
-  // Add style to header element when scrolled
+  // Scroll state
   const [scrolled, setScrolled] = React.useState(false);
   // Menu open state
   const [menuOpen, setMenuOpen] = React.useState(false);
+  // Menu transition state: 'opening', 'closing', or null
+  const [menuTransition, setMenuTransition] = React.useState<'opening' | 'closing' | null>(null);
+  const prevMenuOpenRef = React.useRef(false);
+
+  React.useEffect(() => {
+    // Track menu state changes for opening/closing transitions
+    if (menuOpen !== prevMenuOpenRef.current) {
+      if (menuOpen) {
+        setMenuTransition('opening');
+      } else {
+        setMenuTransition('closing');
+      }
+      prevMenuOpenRef.current = menuOpen;
+      
+      // Clear transition state after animation completes
+      const timeout = setTimeout(() => {
+        setMenuTransition(null);
+      }, 400); // Match your transition duration
+      
+      return () => clearTimeout(timeout);
+    }
+  }, [menuOpen]);
 
   React.useEffect(() => {
     // Close menu on route change
@@ -28,26 +50,64 @@ const Header: React.FC<HeaderProps> = ({ menuData }: HeaderProps) => {
   }, [pathname]);
 
   React.useEffect(() => {
+    // Close menu after a short delay when page transition starts
+    // This allows the activating link indicator animation to be visible
+    const handleTransitionStart = () => {
+      setTimeout(() => {
+        setMenuOpen(false);
+      }, 300); // Match fade-out duration
+    };
+
+    window.addEventListener('page-transition-start', handleTransitionStart);
+
+    return () => {
+      window.removeEventListener('page-transition-start', handleTransitionStart);
+    };
+  }, []);
+
+  React.useEffect(() => {
+    let scrollTicking = false;
+    let resizeTimeout: NodeJS.Timeout | null = null;
+
     const handleScroll = () => {
-      const isScrolled = window.scrollY > 0;
-      setScrolled(isScrolled);
+      // Throttle scroll events using requestAnimationFrame
+      if (!scrollTicking) {
+        scrollTicking = true;
+        requestAnimationFrame(() => {
+          const isScrolled = window.scrollY > 0;
+          setScrolled(isScrolled);
+          scrollTicking = false;
+        });
+      }
     };
 
     const handleResize = () => {
-      if (window.innerWidth > 576) {
-        setMenuOpen(false);
+      // Debounce resize events
+      if (resizeTimeout) {
+        clearTimeout(resizeTimeout);
       }
+      resizeTimeout = setTimeout(() => {
+        if (window.innerWidth > 576) {
+          setMenuOpen(false);
+        }
+      }, 100);
+    };
+
+    // Initial checks
+    setScrolled(window.scrollY > 0);
+    if (window.innerWidth > 576) {
+      setMenuOpen(false);
     }
 
-    handleResize();
-    handleScroll();
-
-    window.addEventListener('resize', handleResize);
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleResize, { passive: true });
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
     return () => {
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('scroll', handleScroll);
+      if (resizeTimeout) {
+        clearTimeout(resizeTimeout);
+      }
     };
   }, []);
 
@@ -61,7 +121,7 @@ const Header: React.FC<HeaderProps> = ({ menuData }: HeaderProps) => {
         </div>
         <Navigation menuData={ menuData } menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
       </Container>
-      <div className={`${st.header__background} ${menuOpen ? st['header__background--menu-open'] : ''}`}></div>
+      <div className={`${st.header__background} ${scrolled ? st['header__background--scrolled'] : ''} ${menuOpen ? st['header__background--menu-open'] : ''} ${menuTransition ? st[`header__background--menu-${menuTransition}`] : ''}`}></div>
     </header>
   );
 };
