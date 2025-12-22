@@ -4,7 +4,7 @@
   font-family: var(--font-zilla-slab), serif;
   font-size: 3rem;
   font-weight: 600;
-  margin-bottom: 4rem;
+  margin-bottom: 2rem;
 
   @include mixins.max(lg) {
     font-size: 2.5rem;
@@ -30,6 +30,7 @@
 
   @include mixins.max(lg) {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 }
 
@@ -66,6 +67,7 @@
     border-radius: 3px;
     overflow: hidden;
     width: 7rem;
+    min-height: 7rem;
 
     img {
       position: absolute;
@@ -75,7 +77,8 @@
     }
 
     @include mixins.max(sm) {
-      width: 6rem;
+      width: 5rem;
+      min-height: 5rem;
     }
   }
 
@@ -104,7 +107,7 @@
 .blogPost__inner {
   display: flex;
   align-items: stretch;
-  padding: .2rem;
+  padding: .3rem;
   padding-right: 1rem;
   gap: 1rem;
 }
