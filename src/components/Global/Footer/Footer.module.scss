@@ -1,9 +1,21 @@
 @use '@/styles/mixins';
 
+.footerWrapper {
+  margin-top: auto;
+  transition: opacity 0.3s ease-out;
+
+  &.fadeOut {
+    opacity: 0;
+  }
+
+  &.fadeIn {
+    opacity: 1;
+  }
+}
+
 .footer {
   width: 100%;
   background-color: #fff;
-  margin-top: auto;
   font-size: 1.125rem;
 
   span {

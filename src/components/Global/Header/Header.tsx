@@ -115,7 +115,7 @@ const Header: React.FC<HeaderProps> = ({ menuData }: HeaderProps) => {
 
   return (
     <header className={headerClassName}>
-      <Container classNames={st.container} variant={'no-vertical-padding'}>
+      <Container classNames={`${st.container} ${pathname.startsWith('/blog/') ? st.containerSlim : ''}`} variant={'no-vertical-padding'}>
         <div className={st.logo}>
           <Logo />
         </div>

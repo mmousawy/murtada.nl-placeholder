@@ -62,10 +62,15 @@
   width: 100%;
   padding-top: 1rem;
   padding-bottom: 0;
+  transition: padding 0.4s, max-width 0.4s;
 
   @include mixins.min(sm) {
     height: 5rem;
   }
+}
+
+.containerSlim.containerSlim {
+  max-width: 50rem;
 }
 
 @keyframes hideHeader {
