@@ -23,7 +23,7 @@
 
   @include mixins.max(sm) {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: 1rem;
     margin-bottom: .5rem;
   }
 }
@@ -134,11 +134,6 @@
   color: var(--foreground);
   transition: color 0.3s;
   
-  // Truncate long titles
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-
   @include mixins.max(sm) {
     font-size: 1.125rem;
   }
