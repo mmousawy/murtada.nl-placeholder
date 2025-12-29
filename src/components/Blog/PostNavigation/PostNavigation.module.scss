@@ -1,7 +1,13 @@
 @use '@/styles/mixins';
 
 .container{
-  margin-top: 1rem;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+
+  @include mixins.max(sm) {
+    margin-top: 2rem;
+    margin-bottom: .5rem;
+  }
 }
 
 .sectionTitle {
